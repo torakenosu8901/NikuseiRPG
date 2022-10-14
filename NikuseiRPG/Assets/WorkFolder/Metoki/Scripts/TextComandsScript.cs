@@ -15,15 +15,19 @@ public class TextComandsScript : MonoBehaviour
     [SerializeField]
     private GameObject sentakuPanelThree;
 
+    //逃げるコマンドを押した後に出るテキスト
     [SerializeField] 
     private GameObject runAwayText;
-
+    //アイテムコマンドを押した後に出るテキスト
     [SerializeField]
     private GameObject itemText;
 
-    [SerializeField]
+   /* [SerializeField]
     private GameObject damegeText;
 
+    [Serializefield]
+    private List<DamegeDate> object01;*/
+    
     void Start()
     {
         //開始時にsentakuPanel以外のテキストを非表示にする
@@ -32,10 +36,14 @@ public class TextComandsScript : MonoBehaviour
         sentakuPanelThree.SetActive(false);
         runAwayText.SetActive(false);
         itemText.SetActive(false);
-        damegeText.SetActive(false);    
+        //damegeText.SetActive(false);
+
+        
     }
 
+
     // Update is called once per frame
+    //void Update()
     void Update()
     {
 
@@ -72,10 +80,11 @@ public class TextComandsScript : MonoBehaviour
                     sentakuPanelTwo.SetActive(false);
                     sentakuPanel.SetActive(true);
                 }
-                if(Input.GetKeyDown(KeyCode.A))
+                /*if(Input.GetKeyDown(KeyCode.A))
                 {
+
                    damegeText.SetActive(!damegeText.activeSelf);
-                }
+                }*/
             }
             //逃げるコマンドにカーソルがいってるとき
             else if (sentakuPanelThree.activeSelf)
@@ -93,7 +102,10 @@ public class TextComandsScript : MonoBehaviour
                 {
                     runAwayText.SetActive(!runAwayText.activeSelf);
                 }
-        }               
-
+            }               
     }
+    /*public void DamegeDate()
+    {
+        string.text = 
+    }*/
 }

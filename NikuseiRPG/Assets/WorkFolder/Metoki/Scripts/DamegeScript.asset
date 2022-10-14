@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: DamegeScript
   m_EditorClassIdentifier: Assembly-CSharp::DamegeData
-  EnemyName: 
-  MaxHP: 100
+  WazaName: Attack
+  ATK: 1
