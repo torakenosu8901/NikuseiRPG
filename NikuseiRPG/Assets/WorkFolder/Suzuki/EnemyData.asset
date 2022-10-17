@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyParamList:
   - enemyName: "\u30B9\u30E9\u30A4\u30E0"
-    np: 2
-    atk: 2
-    agi: 1
-    def: 1
+    np: 10
+    atk: 0
+    agi: 0
+    def: 0
     lv: 1
