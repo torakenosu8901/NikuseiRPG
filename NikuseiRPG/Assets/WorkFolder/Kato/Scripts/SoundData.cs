@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/SoundData",fileName = "SoundData")]
 public class SoundData : ScriptableObject

@@ -1,45 +1,47 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleSceneManager : MonoBehaviour
 {
-    //--------------------•Ï”‚ÌéŒ¾-----------------------
-    [SerializeField, Tooltip("ƒoƒgƒ‹‚ÌisŠÇ——p‚ÌƒeƒLƒXƒg")]
+    #region å¤‰æ•°ä¸€è¦§
+    //--------------------å¤‰æ•°ã®å®£è¨€-----------------------
+    [SerializeField, Tooltip("ãƒãƒˆãƒ«ã®é€²è¡Œç®¡ç†ç”¨ã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     private Text battleText;
-    [SerializeField, Tooltip("EnemyList‚ğ“ü‚ê‚é")]
+    [SerializeField, Tooltip("EnemyListã‚’å…¥ã‚Œã‚‹")]
     private EnemyList enemyList;
-    [Tooltip("í“¬’†‚©‚Ç‚¤‚©‚ğ”»’è")]
+    [Tooltip("æˆ¦é—˜ä¸­ã‹ã©ã†ã‹ã‚’åˆ¤å®š")]
     private bool battlePhase = true;
-    [Tooltip("Ÿ”s”»’è")]
+    [Tooltip("å‹æ•—åˆ¤å®š")]
     private bool winOrLose = true;
-    [Tooltip("æUŒãU‚Ì”»’è")]
+    [Tooltip("å…ˆæ”»å¾Œæ”»ã®åˆ¤å®š")]
     private bool whoseTurnIsIt;
-    [Tooltip("ó‚¯‚éƒ_ƒ[ƒW")]
+    [Tooltip("å—ã‘ã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸")]
     private int damage;
-    [Tooltip("ƒvƒŒƒCƒ„[‚Ìs“®‚ğŠÇ—‚·‚é•Ï”")]
-    private int playerMove = 2;
-    [Tooltip("ƒvƒŒƒCƒ„[‚ª“¦‚ê‚é‚©‚Ì•Ï”")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•ã‚’ç®¡ç†ã™ã‚‹å¤‰æ•°")]
+    private int playerMove = 0;
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé€ƒã‚Œã‚‹ã‹ã®å¤‰æ•°")]
     private int playerFlee;
-    [Tooltip("ƒXƒLƒ‹‚ğ”Ô†‚ÅŠÇ—‚·‚é‚½‚ß‚Ì•Ï”")]
+    [Tooltip("ã‚¹ã‚­ãƒ«ã‚’ç•ªå·ã§ç®¡ç†ã™ã‚‹ãŸã‚ã®å¤‰æ•°")]
     private int skillNumber;
-    // [Tooltip("“G‚Ì”Ô†‚ğó‚¯æ‚é")]
+    // [Tooltip("æ•µã®ç•ªå·ã‚’å—ã‘å–ã‚‹")]
     // private int enemyNumber;
-    //-----------‰¼’u‚«‚ÌƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒX----------
+    //-----------ä»®ç½®ãã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹----------
     public int np = 3;
     public int atk = 3;
     public int agi = 2;
     public int def = 0;
-    //------------------“G‚ÌƒXƒe[ƒ^ƒX------------------
+    //------------------æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹------------------
     private string enemyName;
     private int enemyNp;
     private int enemyAtk;
     private int enemyAgi;
     private int enemyDef;
     //private int enemyLv;
-    //------------------ƒVƒ“ƒOƒ‹ƒgƒ“--------------------
+    //------------------ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³--------------------
     public static BattleSceneManager Instance = null;
+    #endregion
     private void Awake()
     {
         if (Instance == null)
@@ -54,9 +56,9 @@ public class BattleSceneManager : MonoBehaviour
     }
     public void Start()
     {
-        // “G‚Ìî•ñ‚ğİ’è
+        // æ•µã®æƒ…å ±ã‚’è¨­å®š
         //enemyNumber = ????
-        //                                   «‚±‚±‚ğŒã‚ÅenemyNumber‚É•Ï‚¦‚é‘½•ª
+        //                                   â†“ã“ã“ã‚’å¾Œã§enemyNumberã«å¤‰ãˆã‚‹å¤šåˆ†
         enemyName = enemyList.EnemyParamList[0].enemyName;
         enemyNp = enemyList.EnemyParamList[0].np;
         enemyAtk = enemyList.EnemyParamList[0].atk;
@@ -64,22 +66,22 @@ public class BattleSceneManager : MonoBehaviour
         enemyDef = enemyList.EnemyParamList[0].def;
        // enemyLv = enemyList.EnemyParamList[0].lv;
 
-        // ‘˜‹ö‚µ‚½“G‚Ìî•ñ‚ğEnemyList‚©‚ç–á‚¢A“G‚Ì–¼‘O‚ğƒeƒLƒXƒg‚É•`‰æ
-     @ battleText.text = enemyName + "‚É‘˜‹ö‚µ‚½II";
+        // é­é‡ã—ãŸæ•µã®æƒ…å ±ã‚’EnemyListã‹ã‚‰è²°ã„ã€æ•µã®åå‰ã‚’ãƒ†ã‚­ã‚¹ãƒˆã«æç”»
+     ã€€ battleText.text = enemyName + "ã«é­é‡ã—ãŸï¼ï¼";
         AgiComparison();
     }
     public void Update()
     {
-        // í“¬ŠJn
+        // æˆ¦é—˜é–‹å§‹
         if (battlePhase)
         {
             switch (playerMove)
             {
-            //-----------ƒvƒŒƒCƒ„[‚ªUŒ‚‚ğ‘I‘ğ‚µ‚½ê‡--------------
+            //-----------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ”»æ’ƒã‚’é¸æŠã—ãŸå ´åˆ--------------
                 case 0:
                     if (whoseTurnIsIt)
                     {
-                        // “G‚Ì•û‚ª‘‚¢ê‡
+                        // æ•µã®æ–¹ãŒæ—©ã„å ´åˆ
                         EnemyAttack();
                         KillConfirmationPlayer();
                         PlayerAttack();
@@ -87,26 +89,26 @@ public class BattleSceneManager : MonoBehaviour
                     }
                     else
                     {
-                        // ƒvƒŒƒCƒ„[‚Ì•û‚ª‘‚¢ê‡
+                        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹ãŒæ—©ã„å ´åˆ
                         PlayerAttack();
                         KillConfirmationEnemy();
                         EnemyAttack();
                         KillConfirmationPlayer();
                     }
                     break;
-            //----------ƒvƒŒƒCƒ„[‚ª“¹‹ï‚ğ‘I‘ğ‚µ‚½ê‡-------------
+            //----------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé“å…·ã‚’é¸æŠã—ãŸå ´åˆ-------------
                 case 1:
                     //---------------------------------------
-                    //   ‚±‚±‚ÉƒAƒCƒeƒ€‚ÌŒø‰Ê‚Ì”½‰f‚Ìˆ—‚ğ‘‚­ |
+                    //   ã“ã“ã«ã‚¢ã‚¤ãƒ†ãƒ ã®åŠ¹æœã®åæ˜ ã®å‡¦ç†ã‚’æ›¸ã |
                     //---------------------------------------
                     EnemyAttack();
                     KillConfirmationPlayer();
                     break;
-            //----------ƒvƒŒƒCƒ„[‚ªƒXƒLƒ‹‚ğ‘I‘ğ‚µ‚½ê‡-----------
+            //----------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¹ã‚­ãƒ«ã‚’é¸æŠã—ãŸå ´åˆ-----------
                 case 2:
                     if (whoseTurnIsIt)
                     {
-                        // “G‚Ì•û‚ª‘‚¢ê‡
+                        // æ•µã®æ–¹ãŒæ—©ã„å ´åˆ
                         EnemyAttack();
                         KillConfirmationPlayer();
                         switch(skillNumber)
@@ -117,7 +119,7 @@ public class BattleSceneManager : MonoBehaviour
                     }
                     else
                     {
-                        // ƒvƒŒƒCƒ„[‚Ì•û‚ª‘‚¢ê‡
+                        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹ãŒæ—©ã„å ´åˆ
                         switch (skillNumber)
                         {
                             case 0:
@@ -127,20 +129,20 @@ public class BattleSceneManager : MonoBehaviour
                         KillConfirmationPlayer();
                     }
                     break;
-            //----------ƒvƒŒƒCƒ„[‚ª“¦‚°‚é‚ğ‘I‘ğ‚µ‚½ê‡-----------
+            //----------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé€ƒã’ã‚‹ã‚’é¸æŠã—ãŸå ´åˆ-----------
                 case 3:
                     playerFlee = Random.Range(1, 6);
                     if (1 == playerFlee)
                     {
-                        battleText.text = enemyName + "‚©‚ç“¦‚°‚ê‚½";
+                        battleText.text = enemyName + "ã‹ã‚‰é€ƒã’ã‚ŒãŸ";
 
                         //---------------------------------------
-                        //   ƒV[ƒ“‘JˆÚ‚Ìˆ—‚ğ‚±‚±‚É‘‚­
+                        //   ã‚·ãƒ¼ãƒ³é·ç§»ã®å‡¦ç†ã‚’ã“ã“ã«æ›¸ã
                         //---------------------------------------
                     }
                     else
                     {
-                        battleText.text = "“¦‚°‚«‚ê‚È‚©‚Á‚½";
+                        battleText.text = "é€ƒã’ãã‚Œãªã‹ã£ãŸ";
                         EnemyAttack();
                         KillConfirmationPlayer();
                     }
@@ -150,25 +152,26 @@ public class BattleSceneManager : MonoBehaviour
         }
         else
         {
-            // ƒvƒŒƒCƒ„[‚ÌŸ—˜
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹åˆ©
             if (winOrLose)
             {
-                battleText.text =  enemyName + "‚ğ“|‚µ‚½I";
+                battleText.text =  enemyName + "ã‚’å€’ã—ãŸï¼";
                 //---------------------------------------
-                //   ƒV[ƒ“‘JˆÚ‚Ìˆ—‚ğ‚±‚±‚É‘‚­
+                //   ã‚·ãƒ¼ãƒ³é·ç§»ã®å‡¦ç†ã‚’ã“ã“ã«æ›¸ã
                 //---------------------------------------
             }
-            // ƒvƒŒƒCƒ„[‚Ì”s–k
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ•—åŒ—
             else
             {
                 battleText.text = "GAMEOBERA";
                 //---------------------------------------
-                //   ƒV[ƒ“‘JˆÚ‚Ìˆ—‚ğ‚±‚±‚É‘‚­
+                //   ã‚·ãƒ¼ãƒ³é·ç§»ã®å‡¦ç†ã‚’ã“ã“ã«æ›¸ã
                 //---------------------------------------
             }
         }
     }
-    //----------“G‚ğ“|‚µ‚½‚©‚Ì”»’è‚ÌŠÖ”--------------
+    #region é–¢æ•°ä¸€è¦§
+    //----------æ•µã‚’å€’ã—ãŸã‹ã®åˆ¤å®šã®é–¢æ•°--------------
     public void KillConfirmationEnemy()
     {
         if (enemyNp <= 0)
@@ -176,17 +179,17 @@ public class BattleSceneManager : MonoBehaviour
             battlePhase = false;
         }
     }
-    //--------ƒvƒŒƒCƒ„[‚ª€‚ñ‚¾‚©‚Ì”»’è‚ÌŠÖ”---------
+    //--------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»ã‚“ã ã‹ã®åˆ¤å®šã®é–¢æ•°---------
     public void KillConfirmationPlayer()
     {
         if (np <= 0)
         {
             battlePhase = false;
-            // ‚Ç‚¿‚ç‚©‚ªŸ‚Á‚½‚©‚Ì”»’è
+            // ã©ã¡ã‚‰ã‹ãŒå‹ã£ãŸã‹ã®åˆ¤å®š
             winOrLose = false;
         }
     }
-    //----ƒvƒŒƒCƒ„[‚Æ“G‚Ç‚Á‚¿‚ª‘‚¢‚©”»’è‚·‚éŠÖ”------
+    //----ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã©ã£ã¡ãŒæ—©ã„ã‹åˆ¤å®šã™ã‚‹é–¢æ•°------
     public void AgiComparison()
     {
         if (enemyAgi >= agi)
@@ -198,21 +201,22 @@ public class BattleSceneManager : MonoBehaviour
             whoseTurnIsIt = false;
         }
     }
-    //------------“G‚ª’ÊíUŒ‚‚µ‚Ä‚­‚éŠÖ”-------------
+    //------------æ•µãŒé€šå¸¸æ”»æ’ƒã—ã¦ãã‚‹é–¢æ•°-------------
     public void EnemyAttack()
     {
         damage = enemyAtk - def;
         np -= damage;
-        battleText.text = damage + "ƒ_ƒ[ƒWó‚¯‚½";
+        battleText.text = damage + "ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸ";
         damage = 0;
     }
-    //----------ƒvƒŒƒCƒ„[‚ª’ÊíUŒ‚‚·‚éŠÖ”-----------
+    //----------ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé€šå¸¸æ”»æ’ƒã™ã‚‹é–¢æ•°-----------
     public void PlayerAttack()
     {
         damage = atk - enemyDef;
         enemyNp -= damage;
-        battleText.text = enemyName + "‚É" + damage + "ƒ_ƒ[ƒW—^‚¦‚½";
+        battleText.text = enemyName + "ã«" + damage + "ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸ãˆãŸ";
         damage = 0;
     }
+    #endregion
 }
 //battleText.text = string.Format("{000}",enemyNp);
