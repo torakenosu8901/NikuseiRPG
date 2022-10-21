@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,4 +12,4 @@ public class DamegeData : ScriptableObject
     // private‚Å‚à[SerializeField]‚ğ‚Â‚¯‚é‚±‚Æ‚ÅInspector‚ÅŠm”F‚Å‚«‚é‚æ‚¤‚É‚È‚è‚Ü‚·B
     [SerializeField]
     float ATK = 1;
-}
+}*/
