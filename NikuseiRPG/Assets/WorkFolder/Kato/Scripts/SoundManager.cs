@@ -23,9 +23,7 @@ public class SoundManager : SingletonClass<SoundManager>
 
     // BGM‚Íˆê‚Â‚Ã‚Â–Â‚é‚ªASE‚Í•¡”“¯‚É–Â‚é‚±‚Æ‚ª‚ ‚é
     [SerializeField] private AudioSource bgmSource;
-    [SerializeField] private AudioSource seSource;
     private List<AudioSource> seSourceList;
-    [SerializeField] private Dictionary<SELabel, AudioClip> seClipDic;
     [SerializeField] private SoundData soundData;
     [SerializeField] private SEData SEData;
 
@@ -65,11 +63,11 @@ public class SoundManager : SingletonClass<SoundManager>
     {
         yield return new WaitForSeconds(delay);
         AudioSource se = seSourceList[nextSESourceNum];
-        se.PlayOneShot(seClipDic[seLabel]);
+        se.PlayOneShot(SEData.SEDataPairs[(int)seLabel].audioClip);
         nextSESourceNum = (++nextSESourceNum < SE_SOURCE_NUM) ? nextSESourceNum : 0;
         bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
-
-        bgmSource.Play();
+        
+        
     }
     
 
@@ -139,8 +137,8 @@ public class SoundManager : SingletonClass<SoundManager>
 
     public enum SELabel
     {
-     SE1,
-     SE2,
-     SE3
+      SE1,
+      SE2,
+      SE3
     }
 

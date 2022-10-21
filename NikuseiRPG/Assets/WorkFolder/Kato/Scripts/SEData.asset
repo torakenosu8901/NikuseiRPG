@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0b203e99562a342821d217a0d6a246, type: 3}
   m_Name: SEData
   m_EditorClassIdentifier: 
-  bgmDataPairs:
+  SEDataPairs:
+  - seLabel: 0
+    audioClip: {fileID: 8300000, guid: 85be2928ad42ca04bad8e60e9a336739, type: 3}
   - seLabel: 0
     audioClip: {fileID: 8300000, guid: 345d13a7a8040c244bcbe730df1e9d53, type: 3}
-  - seLabel: 1
+  - seLabel: 0
     audioClip: {fileID: 8300000, guid: 447d6285d476c524c868fbccb0dd7916, type: 3}
-  - seLabel: 2
-    audioClip: {fileID: 8300000, guid: 345d13a7a8040c244bcbe730df1e9d53, type: 3}

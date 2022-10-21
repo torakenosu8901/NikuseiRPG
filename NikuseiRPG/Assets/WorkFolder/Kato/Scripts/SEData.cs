@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/SEData", fileName = "SEData")]
 public class SEData : ScriptableObject
 {
-    public SEDataPair[] bgmDataPairs;
+    public SEDataPair[] SEDataPairs;
 
 }
 
