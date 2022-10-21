@@ -1,36 +1,41 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextComandsScript : MonoBehaviour
 {
-    //ƒAƒCƒeƒ€ƒRƒ}ƒ“ƒh‚Ìã‚É‚©‚Ô‚³‚éƒJ[ƒ\ƒ‹
+    public int aaa = 5;
+    //ã‚¢ã‚¤ãƒ†ãƒ ã‚³ãƒãƒ³ãƒ‰ã®ä¸Šã«ã‹ã¶ã•ã‚‹ã‚«ãƒ¼ã‚½ãƒ«
+
+    //ã‚¹ã‚¯ãƒªã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­èº«ã‚’æŒã£ã¦ãã‚‹
+    [SerializeField]
+    private DamegeData damegeData;
     [SerializeField]
     private GameObject sentakuPanel;
-    //‚½‚½‚©‚¤ƒRƒ}ƒ“ƒh‚Ìã‚É‚©‚Ô‚³‚éƒJ[ƒ\ƒ‹
+    //ãŸãŸã‹ã†ã‚³ãƒãƒ³ãƒ‰ã®ä¸Šã«ã‹ã¶ã•ã‚‹ã‚«ãƒ¼ã‚½ãƒ«
     [SerializeField]
     private GameObject sentakuPanelTwo;
-    //“¦‚°‚éƒRƒ}ƒ“ƒh‚Ìã‚É‚©‚Ô‚³‚éƒJ[ƒ\ƒ‹
+    //é€ƒã’ã‚‹ã‚³ãƒãƒ³ãƒ‰ã®ä¸Šã«ã‹ã¶ã•ã‚‹ã‚«ãƒ¼ã‚½ãƒ«
     [SerializeField]
     private GameObject sentakuPanelThree;
 
-    //“¦‚°‚éƒRƒ}ƒ“ƒh‚ğ‰Ÿ‚µ‚½Œã‚Éo‚éƒeƒLƒXƒg
-    [SerializeField] 
+    //é€ƒã’ã‚‹ã‚³ãƒãƒ³ãƒ‰ã‚’æŠ¼ã—ãŸå¾Œã«å‡ºã‚‹ãƒ†ã‚­ã‚¹ãƒˆ
+    [SerializeField]
     private GameObject runAwayText;
-    //ƒAƒCƒeƒ€ƒRƒ}ƒ“ƒh‚ğ‰Ÿ‚µ‚½Œã‚Éo‚éƒeƒLƒXƒg
+    //ã‚¢ã‚¤ãƒ†ãƒ ã‚³ãƒãƒ³ãƒ‰ã‚’æŠ¼ã—ãŸå¾Œã«å‡ºã‚‹ãƒ†ã‚­ã‚¹ãƒˆ
     [SerializeField]
     private GameObject itemText;
 
-   /* [SerializeField]
-    private GameObject damegeText;
+    [SerializeField]
+     public Text damegeText;
 
-    [Serializefield]
-    private List<DamegeDate> object01;*/
-    
+     /*[Serializefield]
+     private List<DamegeDate> object01;*/
+
     void Start()
     {
-        //ŠJn‚ÉsentakuPanelˆÈŠO‚ÌƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
+        //é–‹å§‹æ™‚ã«sentakuPanelä»¥å¤–ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
         sentakuPanel.SetActive(true);
         sentakuPanelTwo.SetActive(false);
         sentakuPanelThree.SetActive(false);
@@ -38,7 +43,7 @@ public class TextComandsScript : MonoBehaviour
         itemText.SetActive(false);
         //damegeText.SetActive(false);
 
-        
+
     }
 
 
@@ -46,63 +51,63 @@ public class TextComandsScript : MonoBehaviour
     //void Update()
     void Update()
     {
+        //ã‚¢ã‚¤ãƒ†ãƒ ã‚³ãƒãƒ³ãƒ‰ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒã„ã£ã¦ã‚‹ã¨ã
+        if (sentakuPanel.activeSelf)
+        {
 
-        
-            //ƒAƒCƒeƒ€ƒRƒ}ƒ“ƒh‚ÉƒJ[ƒ\ƒ‹‚ª‚¢‚Á‚Ä‚é‚Æ‚«
-            if (sentakuPanel.activeSelf)
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-               
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    sentakuPanel.SetActive(false);
-                    sentakuPanelTwo.SetActive(true);
-                }
-                //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒAƒCƒeƒ€ƒeƒLƒXƒg‚ğ•\¦
-                //if (Input.GetKeyDown("joystick button 0"))
-                if(Input.GetKeyDown(KeyCode.A))
-                {
-                    itemText.SetActive(!itemText.activeSelf);
-                }
+                sentakuPanel.SetActive(false);
+                sentakuPanelTwo.SetActive(true);
             }
-            //‚½‚½‚©‚¤ƒRƒ}ƒ“ƒh‚ÉƒJ[ƒ\ƒ‹‚ª‚¢‚Á‚Ä‚é‚Æ‚«
-            else if (sentakuPanelTwo.activeSelf)
+            //Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚¢ã‚¤ãƒ†ãƒ ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
+            //if (Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown(KeyCode.A))
             {
-
-               
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    sentakuPanelTwo.SetActive(false);
-                    sentakuPanelThree.SetActive(true);
-                }
-                
-                else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    sentakuPanelTwo.SetActive(false);
-                    sentakuPanel.SetActive(true);
-                }
-                /*if(Input.GetKeyDown(KeyCode.A))
-                {
-
-                   damegeText.SetActive(!damegeText.activeSelf);
-                }*/
+                aaa = 1;
+                itemText.SetActive(!itemText.activeSelf);
             }
-            //“¦‚°‚éƒRƒ}ƒ“ƒh‚ÉƒJ[ƒ\ƒ‹‚ª‚¢‚Á‚Ä‚é‚Æ‚«
-            else if (sentakuPanelThree.activeSelf)
-            {
-              
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    sentakuPanelThree.SetActive(false);
-                    sentakuPanelTwo.SetActive(true);
-                }
-                //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç“¦‚°‚éƒeƒLƒXƒg•\¦B
+        }
+        //ãŸãŸã‹ã†ã‚³ãƒãƒ³ãƒ‰ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒã„ã£ã¦ã‚‹ã¨ã
+        else if (sentakuPanelTwo.activeSelf)
+        {
 
-                //if (Input.GetKeyDown("joystick button 0"))
-                if(Input.GetKeyDown(KeyCode.A))
-                {
-                    runAwayText.SetActive(!runAwayText.activeSelf);
-                }
-            }               
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                sentakuPanelTwo.SetActive(false);
+                sentakuPanelThree.SetActive(true);
+            }
+
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                sentakuPanelTwo.SetActive(false);
+                sentakuPanel.SetActive(true);
+            }
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                aaa = 0;
+                damegeText.text = damegeData.ATK.ToString();
+            }
+        }
+        //é€ƒã’ã‚‹ã‚³ãƒãƒ³ãƒ‰ã«ã‚«ãƒ¼ã‚½ãƒ«ãŒã„ã£ã¦ã‚‹ã¨ã
+        else if (sentakuPanelThree.activeSelf)
+        {
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                sentakuPanelThree.SetActive(false);
+                sentakuPanelTwo.SetActive(true);
+            }
+            //Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰é€ƒã’ã‚‹ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤ºã€‚
+
+            //if (Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                aaa = 2;
+                runAwayText.SetActive(!runAwayText.activeSelf);
+            }
+        }
     }
     /*public void DamegeDate()
     {
