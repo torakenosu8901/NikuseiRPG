@@ -19,11 +19,13 @@ public class BattleSceneManager : MonoBehaviour
     [Tooltip("受けるダメージ")]
     private int damage;
     [Tooltip("プレイヤーの行動を管理する変数")]
-    private int playerMove = 2;
+    private int playerMove = 0;
     [Tooltip("プレイヤーが逃れるかの変数")]
     private int playerFlee;
     [Tooltip("スキルを番号で管理するための変数")]
     private int skillNumber;
+    [Tooltip("通常攻撃をするかスキルで攻撃するかの判定")]
+    private bool attackOrSkill = true;
     // [Tooltip("敵の番号を受け取る")]
     // private int enemyNumber;
     //-----------仮置きのプレイヤーのステータス----------
@@ -77,21 +79,51 @@ public class BattleSceneManager : MonoBehaviour
             {
             //-----------プレイヤーが攻撃を選択した場合--------------
                 case 0:
-                    if (whoseTurnIsIt)
+                    if (attackOrSkill)
                     {
-                        // 敵の方が早い場合
-                        EnemyAttack();
-                        KillConfirmationPlayer();
-                        PlayerAttack();
-                        KillConfirmationEnemy();
+                        if (whoseTurnIsIt)
+                        {
+                            // 敵の方が早い場合
+                            EnemyAttack();
+                            KillConfirmationPlayer();
+                            PlayerAttack();
+                            KillConfirmationEnemy();
+                           
+                        }
+                        else
+                        {
+                           
+                            // プレイヤーの方が早い場合
+                            PlayerAttack();
+                            KillConfirmationEnemy();
+                            EnemyAttack();
+                            KillConfirmationPlayer();
+                        }
                     }
                     else
                     {
-                        // プレイヤーの方が早い場合
-                        PlayerAttack();
-                        KillConfirmationEnemy();
-                        EnemyAttack();
-                        KillConfirmationPlayer();
+                        if (whoseTurnIsIt)
+                        {
+                            // 敵の方が早い場合
+                            EnemyAttack();
+                            KillConfirmationPlayer();
+                            switch (skillNumber)
+                            {
+                                case 0:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            // プレイヤーの方が早い場合
+                            switch (skillNumber)
+                            {
+                                case 0:
+                                    break;
+                            }
+                            EnemyAttack();
+                            KillConfirmationPlayer();
+                        }
                     }
                     break;
             //----------プレイヤーが道具を選択した場合-------------
@@ -102,33 +134,8 @@ public class BattleSceneManager : MonoBehaviour
                     EnemyAttack();
                     KillConfirmationPlayer();
                     break;
-            //----------プレイヤーがスキルを選択した場合-----------
-                case 2:
-                    if (whoseTurnIsIt)
-                    {
-                        // 敵の方が早い場合
-                        EnemyAttack();
-                        KillConfirmationPlayer();
-                        switch(skillNumber)
-                        {
-                            case 0:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        // プレイヤーの方が早い場合
-                        switch (skillNumber)
-                        {
-                            case 0:
-                                break;
-                        }
-                        EnemyAttack();
-                        KillConfirmationPlayer();
-                    }
-                    break;
             //----------プレイヤーが逃げるを選択した場合-----------
-                case 3:
+                case 2:
                     playerFlee = Random.Range(1, 6);
                     if (1 == playerFlee)
                     {
@@ -146,7 +153,6 @@ public class BattleSceneManager : MonoBehaviour
                     }
                     break;
             }
-
         }
         else
         {
