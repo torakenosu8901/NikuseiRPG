@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,14 +12,14 @@ public class Title : MonoBehaviour
 
     void Update()
     {
-        //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒV[ƒ“ˆÚ“®
+        //Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚·ãƒ¼ãƒ³ç§»å‹•
         if(Input.GetKeyDown("joystick button 0"))
         {
-            //()‚Ì’†g‚ÍƒƒCƒ“ƒQ[ƒ€‚ÌƒV[ƒ“–¼‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢
+            //()ã®ä¸­èº«ã¯ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã®ã‚·ãƒ¼ãƒ³åã‚’å…¥ã‚Œã¦ãã ã•ã„
             SceneManager.LoadScene("Main");
 
-            //Šm”F—p
-            Debug.Log("button0‚ª‰Ÿ‚³‚ê‚Ü‚µ‚½");
+            //ç¢ºèªç”¨
+            Debug.Log("button0ãŒæŠ¼ã•ã‚Œã¾ã—ãŸ");
         }
     }
 }
