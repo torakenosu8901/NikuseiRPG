@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &142707607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -349,7 +349,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 279138323}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 628357552}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: AttackPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &279138323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,7 +716,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 627684016}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 628357552}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: ItemPhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &627684016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0543352ae3d1484c90e53b22f501212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textComandsScript: {fileID: 944306442}
   battleText: {fileID: 580038260}
   enemyList: {fileID: 11400000, guid: 48050486314d3de4da0e5176f1bf3662, type: 2}
   np: 3
@@ -910,7 +933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a10952e4241774198b75a1ec594b5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aaa: 0
+  battleSceneManager: {fileID: 628357552}
   damegeData: {fileID: 11400000, guid: e57155661b7debe48965da34d8f23ccd, type: 2}
   sentakuPanel: {fileID: 603082790}
   sentakuPanelTwo: {fileID: 1566911059}
@@ -935,7 +958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1414031337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1403,7 +1426,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1582242366}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 628357552}
+        m_TargetAssemblyTypeName: BattleSceneManager, Assembly-CSharp
+        m_MethodName: EscapePhase
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1582242366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,7 +1805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2112236952
 RectTransform:
   m_ObjectHideFlags: 0

@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class TextComandsScript : MonoBehaviour
 {
-    public int aaa = 5;
-    //アイテムコマンドの上にかぶさるカーソル
-
+    [SerializeField]
+    public BattleSceneManager battleSceneManager;
     //スクリタブルオブジェクトの中身を持ってくる
     [SerializeField]
     private DamegeData damegeData;
@@ -42,7 +41,7 @@ public class TextComandsScript : MonoBehaviour
         runAwayText.SetActive(false);
         itemText.SetActive(false);
         //damegeText.SetActive(false);
-
+        
 
     }
 
@@ -64,7 +63,7 @@ public class TextComandsScript : MonoBehaviour
             //if (Input.GetKeyDown("joystick button 0"))
             if (Input.GetKeyDown(KeyCode.A))
             {
-                aaa = 1;
+                battleSceneManager.ItemPhase();
                 itemText.SetActive(!itemText.activeSelf);
             }
         }
@@ -86,7 +85,7 @@ public class TextComandsScript : MonoBehaviour
             }
             if(Input.GetKeyDown(KeyCode.A))
             {
-                aaa = 0;
+                battleSceneManager.AttackPhase();
                 damegeText.text = damegeData.ATK.ToString();
             }
         }
@@ -104,7 +103,7 @@ public class TextComandsScript : MonoBehaviour
             //if (Input.GetKeyDown("joystick button 0"))
             if (Input.GetKeyDown(KeyCode.A))
             {
-                aaa = 2;
+                battleSceneManager.EscapePhase();
                 runAwayText.SetActive(!runAwayText.activeSelf);
             }
         }
