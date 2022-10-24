@@ -54,11 +54,13 @@ public class TextComandsScript : MonoBehaviour
         if (sentakuPanel.activeSelf)
         {
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            //if (Input.GetKeyDown(KeyCode.RightArrow))
+            if(Input.GetButtonDown("Itempanel"))
             {
                 sentakuPanel.SetActive(false);
                 sentakuPanelTwo.SetActive(true);
             }
+          
             //Aボタンを押したらアイテムテキストを表示
             //if (Input.GetKeyDown("joystick button 0"))
             if (Input.GetKeyDown(KeyCode.A))
@@ -72,13 +74,15 @@ public class TextComandsScript : MonoBehaviour
         {
 
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            //if (Input.GetKeyDown(KeyCode.RightArrow))
+            if(Input.GetButtonDown("Battlepanelright"))
             {
                 sentakuPanelTwo.SetActive(false);
                 sentakuPanelThree.SetActive(true);
             }
 
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            //else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetButtonDown("Battlepanelleft"))
             {
                 sentakuPanelTwo.SetActive(false);
                 sentakuPanel.SetActive(true);
