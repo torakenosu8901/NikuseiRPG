@@ -12,6 +12,9 @@ public class TestPlayer : MonoBehaviour
     [SerializeField]
     private float playerMoveSpeed;
 
+    [SerializeField]
+    private bool MoveNow;
+
     public static TestPlayer Instance;
 
     // Start is called before the first frame update
@@ -34,5 +37,19 @@ public class TestPlayer : MonoBehaviour
     void Update()
     {
         rb.velocity = new Vector2 (playerMoveSpeed * Input.GetAxis("Horizontal"), playerMoveSpeed * Input.GetAxis("Vertical"));
+
+        if(Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+        {
+            MoveNow = false;
+        }
+        else
+        {
+            MoveNow = true;
+        }
+    }
+
+    public bool GetMoveNow()
+    {
+        return MoveNow;
     }
 }

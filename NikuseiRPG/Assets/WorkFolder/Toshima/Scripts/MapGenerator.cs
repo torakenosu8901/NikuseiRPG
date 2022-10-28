@@ -124,6 +124,8 @@ public class MapGenerator : MonoBehaviour
                         obj.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
                         //エンカウント用のスプライトを貼り付ける(仮)
                         obj.GetComponent<SpriteRenderer>().sprite = gridSprite[2];
+                        //エンカウント用のソースコードを張り付ける
+                        obj.AddComponent<TestEncount>();
                         break;
 
                         //取り出した一文字が「4」(初期地点)だった場合
