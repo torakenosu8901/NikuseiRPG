@@ -18,14 +18,10 @@ public class BattleSceneManager : MonoBehaviour
     private bool whoseTurnIsIt;
     [Tooltip("受けるダメージ")]
     private int damage;
-    [Tooltip("プレイヤーの行動を管理する変数")]
-    private int playerMove = 0;
     [Tooltip("プレイヤーが逃れるかの変数")]
     private int playerFlee;
     [Tooltip("スキルを番号で管理するための変数")]
     private int skillNumber;
-    [Tooltip("通常攻撃をするかスキルで攻撃するかの判定")]
-    private bool attackOrSkill = true;
     // [Tooltip("敵の番号を受け取る")]
     // private int enemyNumber;
     //-----------仮置きのプレイヤーのステータス----------
@@ -64,102 +60,20 @@ public class BattleSceneManager : MonoBehaviour
         enemyAtk = enemyList.EnemyParamList[0].atk;
         enemyAgi = enemyList.EnemyParamList[0].agi;
         enemyDef = enemyList.EnemyParamList[0].def;
-       // enemyLv = enemyList.EnemyParamList[0].lv;
-
+        // enemyLv = enemyList.EnemyParamList[0].lv;
         // 遭遇した敵の情報をEnemyListから貰い、敵の名前をテキストに描画
-     　 battleText.text = enemyName + "に遭遇した！！";
+        battleText.text = enemyName + "に遭遇した！！";
         AgiComparison();
     }
     public void Update()
     {
         // 戦闘開始
-        if (battlePhase)
-        {
-            switch (playerMove)
-            {
-            //-----------プレイヤーが攻撃を選択した場合--------------
-                case 0:
-                    if (attackOrSkill)
-                    {
-                        if (whoseTurnIsIt)
-                        {
-                            // 敵の方が早い場合
-                            EnemyAttack();
-                            KillConfirmationPlayer();
-                            PlayerAttack();
-                            KillConfirmationEnemy();
-                           
-                        }
-                        else
-                        {
-                           
-                            // プレイヤーの方が早い場合
-                            PlayerAttack();
-                            KillConfirmationEnemy();
-                            EnemyAttack();
-                            KillConfirmationPlayer();
-                        }
-                    }
-                    else
-                    {
-                        if (whoseTurnIsIt)
-                        {
-                            // 敵の方が早い場合
-                            EnemyAttack();
-                            KillConfirmationPlayer();
-                            switch (skillNumber)
-                            {
-                                case 0:
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            // プレイヤーの方が早い場合
-                            switch (skillNumber)
-                            {
-                                case 0:
-                                    break;
-                            }
-                            EnemyAttack();
-                            KillConfirmationPlayer();
-                        }
-                    }
-                    break;
-            //----------プレイヤーが道具を選択した場合-------------
-                case 1:
-                    //---------------------------------------
-                    //   ここにアイテムの効果の反映の処理を書く |
-                    //---------------------------------------
-                    EnemyAttack();
-                    KillConfirmationPlayer();
-                    break;
-            //----------プレイヤーが逃げるを選択した場合-----------
-                case 2:
-                    playerFlee = Random.Range(1, 6);
-                    if (1 == playerFlee)
-                    {
-                        battleText.text = enemyName + "から逃げれた";
-
-                        //---------------------------------------
-                        //   シーン遷移の処理をここに書く
-                        //---------------------------------------
-                    }
-                    else
-                    {
-                        battleText.text = "逃げきれなかった";
-                        EnemyAttack();
-                        KillConfirmationPlayer();
-                    }
-                    break;
-            }
-        }
-        else
+        if (!battlePhase)
         {
             // プレイヤーの勝利
             if (winOrLose)
             {
-                battleText.text =  enemyName + "を倒した！";
+                battleText.text = enemyName + "を倒した！";
                 //---------------------------------------
                 //   シーン遷移の処理をここに書く
                 //---------------------------------------
@@ -174,17 +88,13 @@ public class BattleSceneManager : MonoBehaviour
             }
         }
     }
-    //----------敵を倒したかの判定の関数--------------
-    public void KillConfirmationEnemy()
+    //----------死んだかの判定の関数--------------
+    public void KillConfirmation()
     {
         if (enemyNp <= 0)
         {
             battlePhase = false;
         }
-    }
-    //--------プレイヤーが死んだかの判定の関数---------
-    public void KillConfirmationPlayer()
-    {
         if (np <= 0)
         {
             battlePhase = false;
@@ -219,6 +129,80 @@ public class BattleSceneManager : MonoBehaviour
         enemyNp -= damage;
         battleText.text = enemyName + "に" + damage + "ダメージ与えた";
         damage = 0;
+    }
+
+    public void AttackPhase()
+    {
+        if (whoseTurnIsIt)
+        {
+            // 敵の方が早い場合
+            EnemyAttack();
+            KillConfirmation();
+            PlayerAttack();
+            KillConfirmation();
+        }
+        else
+        {
+            // プレイヤーの方が早い場合
+            PlayerAttack();
+            KillConfirmation();
+            EnemyAttack();
+            KillConfirmation();
+        }
+    }
+
+    public void SkillPhase()
+    {
+        if (whoseTurnIsIt)
+        {
+            // 敵の方が早い場合
+            EnemyAttack();
+            KillConfirmation();
+            switch (skillNumber)
+            {
+                case 0:
+                    break;
+            }
+        }
+        else
+        {
+            // プレイヤーの方が早い場合
+            switch (skillNumber)
+            {
+                case 0:
+                    break;
+            }
+            EnemyAttack();
+            KillConfirmation();
+        }
+    }
+
+    public void ItemPhase()
+    {
+        //---------------------------------------
+        //   ここにアイテムの効果の反映の処理を書く |
+        //---------------------------------------
+        EnemyAttack();
+        KillConfirmation();
+    }
+
+    public void EscapePhase()
+    {
+        playerFlee = Random.Range(1, 6);
+        if (1 == playerFlee)
+        {
+            battleText.text = enemyName + "から逃げれた";
+
+            //---------------------------------------
+            //   シーン遷移の処理をここに書く
+            //---------------------------------------
+        }
+        else
+        {
+            battleText.text = "逃げきれなかった";
+            EnemyAttack();
+            KillConfirmation();
+        }
     }
 }
 //battleText.text = string.Format("{000}",enemyNp);

@@ -338,6 +338,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleText: {fileID: 1621302405}
   enemyList: {fileID: 11400000, guid: 48050486314d3de4da0e5176f1bf3662, type: 2}
+  np: 100
+  atk: 3
+  agi: 2
+  def: 0
 --- !u!1 &1196533083
 GameObject:
   m_ObjectHideFlags: 0
