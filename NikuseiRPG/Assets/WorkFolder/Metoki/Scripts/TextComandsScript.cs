@@ -11,6 +11,10 @@ public class TextComandsScript : MonoBehaviour
     [SerializeField]
     private DamegeData damegeData;
     [SerializeField]
+    private SkillList skillList;
+    [SerializeField]
+    private ItemList itemList;
+    [SerializeField]
     private GameObject itemSentakuPanel;
     //たたかうコマンドの上にかぶさるカーソル
     [SerializeField]
@@ -18,19 +22,17 @@ public class TextComandsScript : MonoBehaviour
     //逃げるコマンドの上にかぶさるカーソル
     [SerializeField]
     private GameObject runAwaySentakuPanel;
-
-    //逃げるコマンドを押した後に出るテキスト
     [SerializeField]
-    private GameObject runAwayText;
-    //アイテムコマンドを押した後に出るテキスト
+    private GameObject attakButton;
     [SerializeField]
-    private GameObject itemText;
-
+    private GameObject sukillButton;
     [SerializeField]
-     public Text damegeText;
+    private GameObject attakPanel;
+    [SerializeField]
+    private GameObject sukillPanel;
+    
 
-     /*[Serializefield]
-     private List<DamegeDate> object01;*/
+
 
     void Start()
     {
@@ -38,10 +40,13 @@ public class TextComandsScript : MonoBehaviour
         itemSentakuPanel.SetActive(true);
         battleSentakuPanel.SetActive(false);
         runAwaySentakuPanel.SetActive(false);
-        runAwayText.SetActive(false);
-        itemText.SetActive(false);
-        //damegeText.SetActive(false);
-        
+        attakButton.SetActive(false);
+        sukillButton.SetActive(false);
+        attakPanel.SetActive(false);
+        sukillPanel.SetActive(false);
+
+
+
 
     }
 
@@ -64,8 +69,13 @@ public class TextComandsScript : MonoBehaviour
             //Aボタンを押したらアイテムテキストを表示
             if (Input.GetButtonDown("ItemText"))
             {
+                //damegeText.text = damegeData.ATK.ToString();
                 battleSceneManager.ItemPhase();
-                itemText.SetActive(!itemText.activeSelf);
+            }
+
+            if (Input.GetButtonDown("ItemTextBack"))
+            {
+                Debug.Log("Back");
             }
         }
         //たたかうコマンドにカーソルがいってるとき
@@ -90,8 +100,32 @@ public class TextComandsScript : MonoBehaviour
             //if(Input.GetKeyDown(KeyCode.A))
             if(Input.GetButtonDown("BattleText"))
             {
-                battleSceneManager.AttackPhase();
-                damegeText.text = damegeData.ATK.ToString();
+                attakButton.SetActive(true);
+                sukillButton.SetActive(true);
+                attakPanel.SetActive(true);
+                //damegeText.text = damegeData.ATK.ToString();
+
+                if (Input.GetButtonDown("AttakPanel"))
+                {
+                    battleSceneManager.AttackPhase();
+                }
+            }
+            else if (attakPanel.activeSelf)
+            {
+                if(Input.GetButtonDown("PanelChange"))
+                {
+                    sukillPanel.SetActive(true);
+                    attakPanel.SetActive(false);
+                }
+                if(Input.GetButtonDown("SukillPanel"))
+                {
+                    Debug.Log("Sukill");
+                    //damegeText.text = damegeData.ATK.ToString();
+                }
+                if(Input.GetButtonDown("SukillTextBack"))
+                {
+                    Debug.Log("SukillBack");
+                }
             }
         }
         //逃げるコマンドにカーソルがいってるとき
@@ -107,7 +141,7 @@ public class TextComandsScript : MonoBehaviour
             if (Input.GetButtonDown("EscapeText"))
             {
                 battleSceneManager.EscapePhase();
-                runAwayText.SetActive(!runAwayText.activeSelf);
+                
             }
         }
     }
