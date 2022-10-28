@@ -11,13 +11,13 @@ public class TextComandsScript : MonoBehaviour
     [SerializeField]
     private DamegeData damegeData;
     [SerializeField]
-    private GameObject sentakuPanel;
+    private GameObject itemSentakuPanel;
     //たたかうコマンドの上にかぶさるカーソル
     [SerializeField]
-    private GameObject sentakuPanelTwo;
+    private GameObject battleSentakuPanel;
     //逃げるコマンドの上にかぶさるカーソル
     [SerializeField]
-    private GameObject sentakuPanelThree;
+    private GameObject runAwaySentakuPanel;
 
     //逃げるコマンドを押した後に出るテキスト
     [SerializeField]
@@ -35,9 +35,9 @@ public class TextComandsScript : MonoBehaviour
     void Start()
     {
         //開始時にsentakuPanel以外のテキストを非表示にする
-        sentakuPanel.SetActive(true);
-        sentakuPanelTwo.SetActive(false);
-        sentakuPanelThree.SetActive(false);
+        itemSentakuPanel.SetActive(true);
+        battleSentakuPanel.SetActive(false);
+        runAwaySentakuPanel.SetActive(false);
         runAwayText.SetActive(false);
         itemText.SetActive(false);
         //damegeText.SetActive(false);
@@ -51,69 +51,65 @@ public class TextComandsScript : MonoBehaviour
     void Update()
     {
         //アイテムコマンドにカーソルがいってるとき
-        if (sentakuPanel.activeSelf)
+        if (itemSentakuPanel.activeSelf)
         {
 
             //if (Input.GetKeyDown(KeyCode.RightArrow))
-            if(Input.GetButtonDown("Itempanel"))
+            if(Input.GetButtonDown("ItemPanel"))
             {
-                sentakuPanel.SetActive(false);
-                sentakuPanelTwo.SetActive(true);
+                itemSentakuPanel.SetActive(false);
+                battleSentakuPanel.SetActive(true);
             }
           
             //Aボタンを押したらアイテムテキストを表示
-            //if (Input.GetKeyDown("joystick button 0"))
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetButtonDown("ItemText"))
             {
                 battleSceneManager.ItemPhase();
                 itemText.SetActive(!itemText.activeSelf);
             }
         }
         //たたかうコマンドにカーソルがいってるとき
-        else if (sentakuPanelTwo.activeSelf)
+        else if (battleSentakuPanel.activeSelf)
         {
 
 
             //if (Input.GetKeyDown(KeyCode.RightArrow))
-            if(Input.GetButtonDown("Battlepanelright"))
+            if(Input.GetButtonDown("BattlePanelRight"))
             {
-                sentakuPanelTwo.SetActive(false);
-                sentakuPanelThree.SetActive(true);
+                battleSentakuPanel.SetActive(false);
+                runAwaySentakuPanel.SetActive(true);
             }
 
             //else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            else if (Input.GetButtonDown("Battlepanelleft"))
+            else if (Input.GetButtonDown("BattlePanelLeft"))
             {
-                sentakuPanelTwo.SetActive(false);
-                sentakuPanel.SetActive(true);
+                battleSentakuPanel.SetActive(false);
+                itemSentakuPanel.SetActive(true);
             }
-            if(Input.GetKeyDown(KeyCode.A))
+            //Aボタンでたたかうに移行
+            //if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetButtonDown("BattleText"))
             {
                 battleSceneManager.AttackPhase();
                 damegeText.text = damegeData.ATK.ToString();
             }
         }
         //逃げるコマンドにカーソルがいってるとき
-        else if (sentakuPanelThree.activeSelf)
+        else if (runAwaySentakuPanel.activeSelf)
         {
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetButtonDown("EscapePanelLeft"))
             {
-                sentakuPanelThree.SetActive(false);
-                sentakuPanelTwo.SetActive(true);
+                runAwaySentakuPanel.SetActive(false);
+                battleSentakuPanel.SetActive(true);
             }
             //Aボタンを押したら逃げるテキスト表示。
-
-            //if (Input.GetKeyDown("joystick button 0"))
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetButtonDown("EscapeText"))
             {
                 battleSceneManager.EscapePhase();
                 runAwayText.SetActive(!runAwayText.activeSelf);
             }
         }
     }
-    /*public void DamegeDate()
-    {
-        string.text = 
-    }*/
+    
 }
