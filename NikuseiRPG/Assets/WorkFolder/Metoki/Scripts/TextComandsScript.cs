@@ -32,8 +32,6 @@ public class TextComandsScript : MonoBehaviour
     private GameObject sukillPanel;
     
 
-
-
     void Start()
     {
         //開始時にsentakuPanel以外のテキストを非表示にする
@@ -44,15 +42,8 @@ public class TextComandsScript : MonoBehaviour
         sukillButton.SetActive(false);
         attakPanel.SetActive(false);
         sukillPanel.SetActive(false);
-
-
-
-
     }
 
-
-    // Update is called once per frame
-    //void Update()
     void Update()
     {
         //アイテムコマンドにカーソルがいってるとき
@@ -82,47 +73,50 @@ public class TextComandsScript : MonoBehaviour
         else if (battleSentakuPanel.activeSelf)
         {
 
-
-            //if (Input.GetKeyDown(KeyCode.RightArrow))
             if(Input.GetButtonDown("BattlePanelRight"))
             {
                 battleSentakuPanel.SetActive(false);
                 runAwaySentakuPanel.SetActive(true);
             }
 
-            //else if (Input.GetKeyDown(KeyCode.LeftArrow))
             else if (Input.GetButtonDown("BattlePanelLeft"))
             {
                 battleSentakuPanel.SetActive(false);
                 itemSentakuPanel.SetActive(true);
             }
             //Aボタンでたたかうに移行
-            //if(Input.GetKeyDown(KeyCode.A))
-            if(Input.GetButtonDown("BattleText"))
+            if (Input.GetButtonDown("BattleText"))
             {
                 attakButton.SetActive(true);
                 sukillButton.SetActive(true);
                 attakPanel.SetActive(true);
                 //damegeText.text = damegeData.ATK.ToString();
-
+            }
+            else if (attakPanel.activeSelf)
+            {
+                if (Input.GetButtonDown("PanelChange"))
+                {
+                    sukillPanel.SetActive(true);
+                    attakPanel.SetActive(false);
+                }
                 if (Input.GetButtonDown("AttakPanel"))
                 {
                     battleSceneManager.AttackPhase();
                 }
             }
-            else if (attakPanel.activeSelf)
+            else if (sukillPanel.activeSelf)
             {
-                if(Input.GetButtonDown("PanelChange"))
+                if (Input.GetButtonDown("SukillPanelChange"))
                 {
-                    sukillPanel.SetActive(true);
-                    attakPanel.SetActive(false);
+                    sukillPanel.SetActive(false);
+                    attakPanel.SetActive(true);
                 }
-                if(Input.GetButtonDown("SukillPanel"))
+                if (Input.GetButtonDown("SukillPanel"))
                 {
                     Debug.Log("Sukill");
                     //damegeText.text = damegeData.ATK.ToString();
                 }
-                if(Input.GetButtonDown("SukillTextBack"))
+                if (Input.GetButtonDown("SukillTextBack"))
                 {
                     Debug.Log("SukillBack");
                 }
@@ -144,6 +138,5 @@ public class TextComandsScript : MonoBehaviour
                 
             }
         }
-    }
-    
+    }    
 }
