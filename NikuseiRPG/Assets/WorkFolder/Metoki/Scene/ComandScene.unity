@@ -1372,15 +1372,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleSceneManager: {fileID: 628357552}
   damegeData: {fileID: 11400000, guid: e57155661b7debe48965da34d8f23ccd, type: 2}
-  skillList: {fileID: 0}
-  itemList: {fileID: 0}
+  skillList: {fileID: 11400000, guid: 4c351c04d2c997947a35ad92aae8cfef, type: 2}
+  itemList: {fileID: 11400000, guid: c38204132baee9e41a0a6d24eaedae22, type: 2}
   itemSentakuPanel: {fileID: 603082790}
   battleSentakuPanel: {fileID: 1566911059}
   runAwaySentakuPanel: {fileID: 1735926542}
+  itemText: {fileID: 2112236951}
   attakButton: {fileID: 330839045}
   sukillButton: {fileID: 1639637273}
   attakPanel: {fileID: 507358186}
   sukillPanel: {fileID: 941993229}
+  itemComand: {fileID: 627684013}
+  battleComand: {fileID: 279138320}
+  runAwayComand: {fileID: 1582242363}
+  attakButtonComand: {fileID: 330839045}
 --- !u!1 &1414031336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1398,7 @@ GameObject:
   - component: {fileID: 1414031339}
   - component: {fileID: 1414031338}
   m_Layer: 5
-  m_Name: DamegeText
+  m_Name: ItemText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1452,7 +1457,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u25CB\u25CB\u30C0\u30E1\u30FC\u30B8\uFF01"
+  m_Text: 
 --- !u!222 &1414031339
 CanvasRenderer:
   m_ObjectHideFlags: 0

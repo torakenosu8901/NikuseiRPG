@@ -7,30 +7,57 @@ public class TextComandsScript : MonoBehaviour
 {
     [SerializeField]
     public BattleSceneManager battleSceneManager;
+    
     //スクリタブルオブジェクトの中身を持ってくる
     [SerializeField]
     private DamegeData damegeData;
+    
     [SerializeField]
     private SkillList skillList;
+    
     [SerializeField]
     private ItemList itemList;
+    
     [SerializeField]
     private GameObject itemSentakuPanel;
+    
     //たたかうコマンドの上にかぶさるカーソル
     [SerializeField]
     private GameObject battleSentakuPanel;
+    
     //逃げるコマンドの上にかぶさるカーソル
     [SerializeField]
     private GameObject runAwaySentakuPanel;
+    
+    [SerializeField]
+    private GameObject itemText;
+    
     [SerializeField]
     private GameObject attakButton;
+    
     [SerializeField]
     private GameObject sukillButton;
+    
     [SerializeField]
     private GameObject attakPanel;
+    
     [SerializeField]
     private GameObject sukillPanel;
-    
+
+    [SerializeField]
+    private GameObject itemComand;
+
+    [SerializeField]
+    private GameObject battleComand;
+
+    [SerializeField]
+    private GameObject runAwayComand;
+
+    [SerializeField]
+    private GameObject attakButtonComand;
+
+    //private string itemName;
+    //private string skillName;
 
     void Start()
     {
@@ -42,6 +69,7 @@ public class TextComandsScript : MonoBehaviour
         sukillButton.SetActive(false);
         attakPanel.SetActive(false);
         sukillPanel.SetActive(false);
+        itemText.SetActive(false);
     }
 
     void Update()
@@ -49,8 +77,6 @@ public class TextComandsScript : MonoBehaviour
         //アイテムコマンドにカーソルがいってるとき
         if (itemSentakuPanel.activeSelf)
         {
-
-            //if (Input.GetKeyDown(KeyCode.RightArrow))
             if(Input.GetButtonDown("ItemPanel"))
             {
                 itemSentakuPanel.SetActive(false);
@@ -60,13 +86,21 @@ public class TextComandsScript : MonoBehaviour
             //Aボタンを押したらアイテムテキストを表示
             if (Input.GetButtonDown("ItemText"))
             {
-                //damegeText.text = damegeData.ATK.ToString();
-                battleSceneManager.ItemPhase();
+                battleComand.SetActive(false);
+                runAwayComand.SetActive(false);
+                //itemText.text = itemList.itemName.ToString();
+                itemText.SetActive(true);
+                itemSentakuPanel.SetActive(false);
             }
-
+        }
+        else if(itemText.activeSelf)
+        {
             if (Input.GetButtonDown("ItemTextBack"))
             {
-                Debug.Log("Back");
+                battleComand.SetActive(true);
+                runAwayComand.SetActive(true);
+                itemSentakuPanel.SetActive(true);
+                itemText.SetActive(false);
             }
         }
         //たたかうコマンドにカーソルがいってるとき
@@ -87,39 +121,52 @@ public class TextComandsScript : MonoBehaviour
             //Aボタンでたたかうに移行
             if (Input.GetButtonDown("BattleText"))
             {
+                itemComand.SetActive(false);
+                runAwayComand.SetActive(false);
                 attakButton.SetActive(true);
                 sukillButton.SetActive(true);
                 attakPanel.SetActive(true);
-                //damegeText.text = damegeData.ATK.ToString();
+                battleSentakuPanel.SetActive(false);
             }
-            else if (attakPanel.activeSelf)
+            
+        }
+        else if (attakPanel.activeSelf)
+        {
+            if (Input.GetButtonDown("PanelChange"))
             {
-                if (Input.GetButtonDown("PanelChange"))
-                {
-                    sukillPanel.SetActive(true);
-                    attakPanel.SetActive(false);
-                }
-                if (Input.GetButtonDown("AttakPanel"))
-                {
-                    battleSceneManager.AttackPhase();
-                }
+                sukillPanel.SetActive(true);
+                attakPanel.SetActive(false);
             }
-            else if (sukillPanel.activeSelf)
+            if (Input.GetButtonDown("AttakPanel"))
             {
-                if (Input.GetButtonDown("SukillPanelChange"))
-                {
-                    sukillPanel.SetActive(false);
-                    attakPanel.SetActive(true);
-                }
-                if (Input.GetButtonDown("SukillPanel"))
-                {
-                    Debug.Log("Sukill");
-                    //damegeText.text = damegeData.ATK.ToString();
-                }
-                if (Input.GetButtonDown("SukillTextBack"))
-                {
-                    Debug.Log("SukillBack");
-                }
+                battleSceneManager.AttackPhase();
+            }
+            //行動画面に戻る
+            if (Input.GetButtonDown("PanelBack"))
+            {
+                itemComand.SetActive(true);
+                runAwayComand.SetActive(true);
+            }
+        }
+        else if (sukillPanel.activeSelf)
+        {
+            if (Input.GetButtonDown("SkillPanelChange"))
+            {
+                sukillPanel.SetActive(false);
+                attakPanel.SetActive(true);
+            }
+            //行動画面に戻る
+            if (Input.GetButtonDown("PanelBack"))
+            {
+                itemComand.SetActive(true);
+                runAwayComand.SetActive(true);
+                attakButtonComand.SetActive(true);
+            }
+            //スキルリストを出す
+            if (Input.GetButtonDown("SkillPanel"))
+            {
+                attakButtonComand.SetActive(false);
+                //skillName = skillList.skillParamList[0].skillName;
             }
         }
         //逃げるコマンドにカーソルがいってるとき
