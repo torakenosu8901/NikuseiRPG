@@ -130,6 +130,7 @@ public class TextComandsScript : MonoBehaviour
             }
             
         }
+        //こうげきパネルにカーソルがあっているとき
         else if (attakPanel.activeSelf)
         {
             if (Input.GetButtonDown("PanelChange"))
@@ -146,8 +147,14 @@ public class TextComandsScript : MonoBehaviour
             {
                 itemComand.SetActive(true);
                 runAwayComand.SetActive(true);
+                attakButton.SetActive(false);
+                sukillButton.SetActive(false);
+                battleSentakuPanel.SetActive(true);
+                attakPanel.SetActive(false);
+                sukillPanel.SetActive(false);
             }
         }
+        //スキルパネルにカーソルがあっているとき
         else if (sukillPanel.activeSelf)
         {
             if (Input.GetButtonDown("SkillPanelChange"))
@@ -161,6 +168,12 @@ public class TextComandsScript : MonoBehaviour
                 itemComand.SetActive(true);
                 runAwayComand.SetActive(true);
                 attakButtonComand.SetActive(true);
+                attakButton.SetActive(false);
+                sukillButton.SetActive(false);
+                battleSentakuPanel.SetActive(true);
+                attakPanel.SetActive(false);
+                sukillPanel.SetActive(false);
+
             }
             //スキルリストを出す
             if (Input.GetButtonDown("SkillPanel"))
