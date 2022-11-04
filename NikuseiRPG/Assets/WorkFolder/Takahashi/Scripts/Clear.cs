@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,14 +8,21 @@ public class Clear : MonoBehaviour
 
     void Update()
     {
-        //Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒV[ƒ“ˆÚ“®
-        if (Input.GetKeyDown("joystick button 0"))
-        {
-            //()‚Ì’†g‚ÍƒƒCƒ“ƒQ[ƒ€‚ÌƒV[ƒ“–¼‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢
-            SceneManager.LoadScene("Title");
+        ////Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚·ãƒ¼ãƒ³ç§»å‹•
+        //if (Input.GetKeyDown("joystick button 0"))
+        //{
+        //    //()ã®ä¸­èº«ã¯ã‚¿ã‚¤ãƒˆãƒ«ã®ã‚·ãƒ¼ãƒ³åã‚’å…¥ã‚Œã¦ãã ã•ã„
+        //    SceneManager.LoadScene("Title");
 
-            //Šm”F—p
-            Debug.Log("button0‚ª‰Ÿ‚³‚ê‚Ü‚µ‚½");
+        //    //ç¢ºèªç”¨
+        //    Debug.Log("button0ãŒæŠ¼ã•ã‚Œã¾ã—ãŸ");
+        //}
+
+        //Enterã‚’æŠ¼ã—ãŸã‚‰ã‚·ãƒ¼ãƒ³ç§»å‹•
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            //()ã®ä¸­èº«ã¯ã‚¿ã‚¤ãƒˆãƒ«ã®ã‚·ãƒ¼ãƒ³åã‚’å…¥ã‚Œã¦ãã ã•ã„
+            SceneManager.LoadScene("Title");
         }
     }
 }
