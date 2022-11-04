@@ -64,14 +64,14 @@ public class MapGenerator : MonoBehaviour
         VerticalGridNum = line.Count()-1;
         HorizontalGridNum = value.Count();
 
-        //動作確認用Debug
+        //動作確認用Debug(動作確認済み)
         //Debug.Log("ワールドの横マスは " + HorizontalGridNum);
         //Debug.Log("ワールドの縦マスは " + VerticalGridNum);
         //Debug.Log("ワールドの総マスは " + mapIndex.Count());
-        for (int i = 0; i < mapIndex.Count(); i++)
-        {
-            Debug.Log(mapIndex[i]);
-        }
+        //for (int i = 0; i < mapIndex.Count(); i++)
+        //{
+        //    Debug.Log(mapIndex[i]);
+        //}
 
         //縦列の個数分回すループ処理
         for (int y = 0; y < VerticalGridNum; y++)
@@ -125,7 +125,7 @@ public class MapGenerator : MonoBehaviour
                         //エンカウント用のスプライトを貼り付ける(仮)
                         obj.GetComponent<SpriteRenderer>().sprite = gridSprite[2];
                         //エンカウント用のソースコードを張り付ける
-                        obj.AddComponent<TestEncount>();
+                        obj.AddComponent<GridEncount>();
                         break;
 
                         //取り出した一文字が「4」(初期地点)だった場合

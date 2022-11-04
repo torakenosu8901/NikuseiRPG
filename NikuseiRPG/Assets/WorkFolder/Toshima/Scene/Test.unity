@@ -444,3 +444,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: test001
+  RandomCount: 0

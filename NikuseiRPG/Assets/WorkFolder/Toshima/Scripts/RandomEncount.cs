@@ -8,6 +8,7 @@ public class RandomEncount : MonoBehaviour
     [SerializeField]
     private string SceneName;
 
+    [SerializeField]
     private float RandomCount;
 
     public static RandomEncount instance;
@@ -25,7 +26,7 @@ public class RandomEncount : MonoBehaviour
 
     public void CountUP()
     {
-        if (RandomCount <= 100f)
+        if (RandomCount >= 100f)
         {
             SceneManager.LoadScene(SceneName);
         }
