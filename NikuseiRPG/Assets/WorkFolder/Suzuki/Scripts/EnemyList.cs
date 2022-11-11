@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/CreateEnemyParamAsset")]
@@ -10,7 +10,7 @@ public class EnemyList : ScriptableObject
 public class EnemyParam
 {
     [SerializeField]
-    public string enemyName = "ƒXƒ‰ƒCƒ€";
+    public string enemyName = "";
     [SerializeField]
     public int np = 0;
     [SerializeField]

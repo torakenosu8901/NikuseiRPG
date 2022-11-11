@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class BattleSceneManager : MonoBehaviour
 {
     //--------------------変数の宣言-----------------------
-    [SerializeField, Tooltip("バトルの進行管理用のテキスト")]
-    private Text battleText;
     [SerializeField, Tooltip("EnemyListを入れる")]
     private EnemyList enemyList;
     [Tooltip("戦闘中かどうかを判定")]
@@ -15,11 +13,11 @@ public class BattleSceneManager : MonoBehaviour
     [Tooltip("勝敗判定")]
     private bool winOrLose = true;
     [Tooltip("先攻後攻の判定")]
-    private bool whoseTurnIsIt;
+    public bool whoseTurnIsIt;
     [Tooltip("受けるダメージ")]
-    private int damage;
+    public int damage;
     [Tooltip("プレイヤーが逃れるかの変数")]
-    private int playerFlee;
+    public int playerFlee;
     [Tooltip("スキルを番号で管理するための変数")]
     private int skillNumber;
     // [Tooltip("敵の番号を受け取る")]
@@ -30,7 +28,7 @@ public class BattleSceneManager : MonoBehaviour
     public int agi = 2;
     public int def = 0;
     //------------------敵のステータス------------------
-    private string enemyName;
+    public string enemyName;
     private int enemyNp;
     private int enemyAtk;
     private int enemyAgi;
@@ -50,7 +48,6 @@ public class BattleSceneManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    
     public void Start()
     {
         // 敵の情報を設定
@@ -62,32 +59,8 @@ public class BattleSceneManager : MonoBehaviour
         enemyAgi = enemyList.EnemyParamList[0].agi;
         enemyDef = enemyList.EnemyParamList[0].def;
         // enemyLv = enemyList.EnemyParamList[0].lv;
-        // 遭遇した敵の情報をEnemyListから貰い、敵の名前をテキストに描画
-        battleText.text = enemyName + "に遭遇した！！";
         AgiComparison();
-    }
-    public void Update()
-    {
-        // 戦闘開始
-        if (!battlePhase)
-        {
-            // プレイヤーの勝利
-            if (winOrLose)
-            {
-                battleText.text = enemyName + "を倒した！";
-                //---------------------------------------
-                //   シーン遷移の処理をここに書く
-                //---------------------------------------
-            }
-            // プレイヤーの敗北
-            else
-            {
-                battleText.text = "GAMEOBERA";
-                //---------------------------------------
-                //   シーン遷移の処理をここに書く
-                //---------------------------------------
-            }
-        }
+        TextSpeed.Instance.EnemyName();
     }
     //----------死んだかの判定の関数--------------
     public void KillConfirmation()
@@ -101,6 +74,30 @@ public class BattleSceneManager : MonoBehaviour
             battlePhase = false;
             // どちらかが勝ったかの判定
             winOrLose = false;
+        }
+        // 戦闘中かの判定
+        if (!battlePhase)
+        {
+            // プレイヤーの勝利
+            if (winOrLose)
+            {
+                TextSpeed.Instance._msg = enemyName + "を倒した！";
+                TextSpeed.Instance.StartTextCoroutine();
+                battlePhase = true;
+                //---------------------------------------
+                //   シーン遷移の処理をここに書く
+                //---------------------------------------
+            }
+            // プレイヤーの敗北
+            else
+            {
+                TextSpeed.Instance._msg = "GAMEOBERA";
+                TextSpeed.Instance.StartTextCoroutine();
+                battlePhase = true;
+                //---------------------------------------
+                //   シーン遷移の処理をここに書く
+                //---------------------------------------
+            }
         }
     }
     //----プレイヤーと敵どっちが早いか判定する関数------
@@ -120,7 +117,6 @@ public class BattleSceneManager : MonoBehaviour
     {
         damage = enemyAtk - def;
         np -= damage;
-        battleText.text = damage + "ダメージ受けた";
         damage = 0;
     }
     //----------プレイヤーが通常攻撃する関数-----------
@@ -128,32 +124,26 @@ public class BattleSceneManager : MonoBehaviour
     {
         damage = atk - enemyDef;
         enemyNp -= damage;
-        battleText.text = enemyName + "に" + damage + "ダメージ与えた";
         damage = 0;
     }
-
     public void AttackPhase()
     {
         if (whoseTurnIsIt)
         {
             // 敵の方が早い場合
             EnemyAttack();
-            KillConfirmation();         
-            PlayerAttack();
+            TextSpeed.Instance.EnemyAtkText(); 
             KillConfirmation();
-            
         }
         else
         {
             // プレイヤーの方が早い場合
             PlayerAttack();
-            KillConfirmation();         
-            EnemyAttack();
+            TextSpeed.Instance.PlayerAtkText();
             KillConfirmation();
-            
+            Debug.Log(1);
         }
     }
-
     public void SkillPhase()
     {
         if (whoseTurnIsIt)
@@ -179,7 +169,6 @@ public class BattleSceneManager : MonoBehaviour
             KillConfirmation();
         }
     }
-
     public void ItemPhase()
     {
         //---------------------------------------
@@ -188,21 +177,17 @@ public class BattleSceneManager : MonoBehaviour
         EnemyAttack();
         KillConfirmation();
     }
-
     public void EscapePhase()
     {
         playerFlee = Random.Range(1, 6);
         if (1 == playerFlee)
         {
-            battleText.text = enemyName + "から逃げれた";
-
             //---------------------------------------
             //   シーン遷移の処理をここに書く
             //---------------------------------------
         }
         else
         {
-            battleText.text = "逃げきれなかった";
             EnemyAttack();
             KillConfirmation();
         }

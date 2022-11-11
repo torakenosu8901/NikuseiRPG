@@ -5,57 +5,44 @@ using UnityEngine.UI;
 
 public class TextComandsScript : MonoBehaviour
 {
-    [SerializeField]
-    public BattleSceneManager battleSceneManager;
-    
     //スクリタブルオブジェクトの中身を持ってくる
     [SerializeField]
     private DamegeData damegeData;
-    
+
     [SerializeField]
     private SkillList skillList;
-    
+
     [SerializeField]
     private ItemList itemList;
-    
+
     [SerializeField]
     private GameObject itemSentakuPanel;
-    
+
     //たたかうコマンドの上にかぶさるカーソル
     [SerializeField]
     private GameObject battleSentakuPanel;
-    
+
     //逃げるコマンドの上にかぶさるカーソル
     [SerializeField]
     private GameObject runAwaySentakuPanel;
-    
     [SerializeField]
     private GameObject itemText;
-    
     [SerializeField]
     private GameObject attakButton;
-    
     [SerializeField]
     private GameObject sukillButton;
-    
     [SerializeField]
     private GameObject attakPanel;
-    
     [SerializeField]
     private GameObject sukillPanel;
-
     [SerializeField]
     private GameObject itemComand;
-
     [SerializeField]
     private GameObject battleComand;
-
     [SerializeField]
     private GameObject runAwayComand;
-
     [SerializeField]
     private GameObject attakButtonComand;
-
     //private string itemName;
     //private string skillName;
 
@@ -71,18 +58,17 @@ public class TextComandsScript : MonoBehaviour
         sukillPanel.SetActive(false);
         itemText.SetActive(false);
     }
-
     void Update()
     {
         //アイテムコマンドにカーソルがいってるとき
         if (itemSentakuPanel.activeSelf)
         {
-            if(Input.GetButtonDown("ItemPanel"))
+            if (Input.GetButtonDown("ItemPanel"))
             {
                 itemSentakuPanel.SetActive(false);
                 battleSentakuPanel.SetActive(true);
             }
-          
+
             //Aボタンを押したらアイテムテキストを表示
             if (Input.GetButtonDown("ItemText"))
             {
@@ -93,7 +79,7 @@ public class TextComandsScript : MonoBehaviour
                 itemSentakuPanel.SetActive(false);
             }
         }
-        else if(itemText.activeSelf)
+        else if (itemText.activeSelf)
         {
             if (Input.GetButtonDown("ItemTextBack"))
             {
@@ -106,13 +92,11 @@ public class TextComandsScript : MonoBehaviour
         //たたかうコマンドにカーソルがいってるとき
         else if (battleSentakuPanel.activeSelf)
         {
-
-            if(Input.GetButtonDown("BattlePanelRight"))
+            if (Input.GetButtonDown("BattlePanelRight"))
             {
                 battleSentakuPanel.SetActive(false);
                 runAwaySentakuPanel.SetActive(true);
             }
-
             else if (Input.GetButtonDown("BattlePanelLeft"))
             {
                 battleSentakuPanel.SetActive(false);
@@ -128,7 +112,6 @@ public class TextComandsScript : MonoBehaviour
                 attakPanel.SetActive(true);
                 battleSentakuPanel.SetActive(false);
             }
-            
         }
         //こうげきパネルにカーソルがあっているとき
         else if (attakPanel.activeSelf)
@@ -140,7 +123,7 @@ public class TextComandsScript : MonoBehaviour
             }
             if (Input.GetButtonDown("AttakPanel"))
             {
-                battleSceneManager.AttackPhase();
+                BattleSceneManager.Instance.AttackPhase();
             }
             //行動画面に戻る
             if (Input.GetButtonDown("PanelBack"))
@@ -194,9 +177,8 @@ public class TextComandsScript : MonoBehaviour
             //Aボタンを押したら逃げるテキスト表示。
             if (Input.GetButtonDown("EscapeText"))
             {
-                battleSceneManager.EscapePhase();
-                
+                BattleSceneManager.Instance.EscapePhase();
             }
         }
-    }    
+    }
 }
