@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ public class SoundManager : SingletonClass<SoundManager>
     private BGMLabel currentBGM = BGMLabel.BGM1;
     private BGMLabel nextBGM = BGMLabel.BGM1;
 
-    // BGM‚Íˆê‚Â‚Ã‚Â–Â‚é‚ªASE‚Í•¡”“¯‚É–Â‚é‚±‚Æ‚ª‚ ‚é
+    // BGMã¯ä¸€ã¤ã¥ã¤é³´ã‚‹ãŒã€SEã¯è¤‡æ•°åŒæ™‚ã«é³´ã‚‹ã“ã¨ãŒã‚ã‚‹
     [SerializeField] private AudioSource bgmSource;
     private List<AudioSource> seSourceList;
     [SerializeField] private SoundData soundData;
@@ -53,7 +53,7 @@ public class SoundManager : SingletonClass<SoundManager>
 
 
     /// <summary>
-    /// w’è‚µ‚½ƒtƒ@ƒCƒ‹–¼‚ÌSE‚ğ—¬‚·B‘æ“ñˆø”‚Ìdelay‚Éw’è‚µ‚½ŠÔ‚¾‚¯Ä¶‚Ü‚Å‚ÌŠÔŠu‚ğ‹ó‚¯‚é
+    /// æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«åã®SEã‚’æµã™ã€‚ç¬¬äºŒå¼•æ•°ã®delayã«æŒ‡å®šã—ãŸæ™‚é–“ã ã‘å†ç”Ÿã¾ã§ã®é–“éš”ã‚’ç©ºã‘ã‚‹
     /// </summary>
     /// /// <param name="seLabel"></param>
     /// /// <param name="delay"></param>
@@ -72,7 +72,7 @@ public class SoundManager : SingletonClass<SoundManager>
     
 
     /// <summary>
-    /// w’è‚µ‚½BGM‚ğ—¬‚·B‚·‚Å‚É—¬‚ê‚Ä‚¢‚éê‡‚ÍNext‚É—\–ñ‚µA—¬‚ê‚Ä‚¢‚éBGM‚ğƒtƒF[ƒhƒAƒEƒg‚³‚¹‚é
+    /// æŒ‡å®šã—ãŸBGMã‚’æµã™ã€‚ã™ã§ã«æµã‚Œã¦ã„ã‚‹å ´åˆã¯Nextã«äºˆç´„ã—ã€æµã‚Œã¦ã„ã‚‹BGMã‚’ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã•ã›ã‚‹
     /// </summary>
     /// <param name="bgmLabel"></param>
     public void PlayBGM(BGMLabel bgmLabel)
@@ -96,7 +96,7 @@ public class SoundManager : SingletonClass<SoundManager>
 
 
     /// <summary>
-    /// BGM‚ğ~‚ß‚é
+    /// BGMã‚’æ­¢ã‚ã‚‹
     /// </summary>
     public void StopSound()
     {

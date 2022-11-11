@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/SEData", fileName = "SEData")]
 public class SEData : ScriptableObject

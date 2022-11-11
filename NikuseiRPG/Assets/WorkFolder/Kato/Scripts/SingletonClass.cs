@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
 public abstract class SingletonClass<T> : MonoBehaviour where T : MonoBehaviour
 {
-    // ƒV[ƒ“‚ğŒ×‚®–‚ªo—ˆ‚é‚© (ƒ}ƒl[ƒWƒƒŒnƒNƒ‰ƒX‚È‚çtrue)
+    // ã‚·ãƒ¼ãƒ³ã‚’è·¨ãäº‹ãŒå‡ºæ¥ã‚‹ã‹ (ãƒãƒãƒ¼ã‚¸ãƒ£ç³»ã‚¯ãƒ©ã‚¹ãªã‚‰true)
     protected bool canCrossScene = true;
 
     private static T Instance;
@@ -15,8 +15,8 @@ public abstract class SingletonClass<T> : MonoBehaviour where T : MonoBehaviour
         {
             if(Instance == null)
             {
-                throw new System.NullReferenceException(typeof(T) + "‚ª‚ ‚è‚Ü‚¹‚ñB" +
-                    "ŒÄ‚Ño‚·‘O‚É¶¬‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new System.NullReferenceException(typeof(T) + "ãŒã‚ã‚Šã¾ã›ã‚“ã€‚" +
+                    "å‘¼ã³å‡ºã™å‰ã«ç”Ÿæˆã—ã¦ãã ã•ã„ã€‚");
             }
 
             return Instance;

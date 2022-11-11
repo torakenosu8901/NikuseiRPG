@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
   soundData: {fileID: 11400000, guid: b2bb54da546f96e499da06ef55c8faff, type: 2}
+  SEData: {fileID: 11400000, guid: 7050005c365336547908281b155d6cfa, type: 2}
