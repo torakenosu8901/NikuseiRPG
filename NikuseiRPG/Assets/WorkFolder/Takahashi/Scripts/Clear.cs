@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Title : MonoBehaviour
+public class Clear : MonoBehaviour
 {
 
     void Update()
     {
         ////Aボタンを押したらシーン移動
-        //if(Input.GetKeyDown("joystick button 0"))
+        //if (Input.GetKeyDown("joystick button 0"))
         //{
-        //    //()の中身はメインゲームのシーン名を入れてください
-        //    SceneManager.LoadScene("Main");
+        //    //()の中身はタイトルのシーン名を入れてください
+        //    SceneManager.LoadScene("Title");
 
         //    //確認用
         //    Debug.Log("button0が押されました");
@@ -21,8 +21,8 @@ public class Title : MonoBehaviour
         //Enterを押したらシーン移動
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            //()の中身はメインゲームのシーン名を入れてください
-            SceneManager.LoadScene("Main");
+            //()の中身はタイトルのシーン名を入れてください
+            SceneManager.LoadScene("Title");
         }
     }
 }

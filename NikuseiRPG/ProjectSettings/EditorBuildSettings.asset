@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/WorkFolder/Takahashi/Scene/Title.unity
+    path: Assets/WorkFolder/Takahashi/Scene/TitleScene.unity
     guid: 05a2094db63e22d4b8a8f1ea487bc359
   - enabled: 1
     path: Assets/WorkFolder/Takahashi/Scene/Main.unity
     guid: 5bdf3e33d5bf10f4b94671e0d1ae643f
   - enabled: 1
-    path: Assets/WorkFolder/Takahashi/Scene/Result.unity
-    guid: d0439aa26d8c96c40b507d1eb3f90a02
+    path: Assets/WorkFolder/Takahashi/Scene/BattleSceneCanvas.unity
+    guid: b4ec08dc6d62094498d36619a64f6eaf
+  - enabled: 1
+    path: Assets/WorkFolder/Takahashi/Scene/ClearScene.unity
+    guid: cdac7e31f4358934bae4bfeca5f0a8fe
   m_configObjects: {}
