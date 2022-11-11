@@ -11,7 +11,9 @@ public class TextSpeed : MonoBehaviour
     private float _messageSpeed = 0.1f;
     public string _msg;
     [Tooltip("テキストの進行管理用")]
-    public bool textControl = false;
+    public bool textControl = true;
+
+    private Coroutine coroutine = null;
     //----------------シングルトンを後で入れてね------------
     public static TextSpeed Instance = null;
     private void Awake()
@@ -34,7 +36,12 @@ public class TextSpeed : MonoBehaviour
     }
     public void StartTextCoroutine()
     {
-        StartCoroutine(MessageCo(_msg));
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+        coroutine = StartCoroutine(MessageCo(_msg));
     }
     private IEnumerator MessageCo(string msg)
     {
@@ -52,20 +59,38 @@ public class TextSpeed : MonoBehaviour
             message = msg.Substring(0, index);
             //テキストに表示する
             battleText.text = message;
-            //　指定の秒数待機する
-            yield return new WaitForSeconds(_messageSpeed);
+            var m = message[message.Length - 1];
+            if (m == '\n')
+            {
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A));
+            }
+            else
+            {
+                //　指定の秒数待機する
+                yield return new WaitForSeconds(_messageSpeed);
+            }           
         }
+        //全体で変更があった場合こっちも変える
+        ChangeMessageSpeed(0.1f);
         textControl = true;
     }
     public void PlayerAtkText()
     {
         _msg = BattleSceneManager.Instance.enemyName + "に"
-        + BattleSceneManager.Instance.damage + "ダメージ与えた";
+        + BattleSceneManager.Instance.damage + "ダメージ与えた" + "\n" 
+        + BattleSceneManager.Instance.damage + "ダメージ受けた";
         StartTextCoroutine();
     }
     public void EnemyAtkText()
     {
-       _msg = BattleSceneManager.Instance.damage + "ダメージ受けた";
-       StartTextCoroutine();
+        _msg = BattleSceneManager.Instance.damage + "ダメージ受けた" + "\n" 
+           + BattleSceneManager.Instance.enemyName + "に"
+        + BattleSceneManager.Instance.damage + "ダメージ与えた";
+        StartTextCoroutine();
+    }
+
+    public void ChangeMessageSpeed(float speed)
+    {
+        _messageSpeed = speed;
     }
 }

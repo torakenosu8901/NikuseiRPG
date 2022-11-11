@@ -1161,8 +1161,8 @@ MonoBehaviour:
   whoseTurnIsIt: 0
   damage: 0
   playerFlee: 0
-  np: 100
-  atk: 1
+  np: 10
+  atk: 10000
   agi: 100
   def: 0
   enemyName: 

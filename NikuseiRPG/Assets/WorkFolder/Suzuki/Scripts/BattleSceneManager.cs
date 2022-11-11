@@ -81,7 +81,7 @@ public class BattleSceneManager : MonoBehaviour
             // プレイヤーの勝利
             if (winOrLose)
             {
-                TextSpeed.Instance._msg = enemyName + "を倒した！";
+                TextSpeed.Instance._msg += "\n" + enemyName + "を倒した！";
                 TextSpeed.Instance.StartTextCoroutine();
                 battlePhase = true;
                 //---------------------------------------
@@ -91,7 +91,7 @@ public class BattleSceneManager : MonoBehaviour
             // プレイヤーの敗北
             else
             {
-                TextSpeed.Instance._msg = "GAMEOBERA";
+                TextSpeed.Instance._msg += "\n" + "GAMEOBERA";
                 TextSpeed.Instance.StartTextCoroutine();
                 battlePhase = true;
                 //---------------------------------------
