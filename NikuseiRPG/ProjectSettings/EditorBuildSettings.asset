@@ -9,12 +9,14 @@ EditorBuildSettings:
     path: Assets/WorkFolder/Takahashi/Scene/TitleScene.unity
     guid: 05a2094db63e22d4b8a8f1ea487bc359
   - enabled: 1
-    path: Assets/WorkFolder/Takahashi/Scene/Main.unity
+    path: Assets/WorkFolder/Takahashi/Scene/AdventureScene.unity
     guid: 5bdf3e33d5bf10f4b94671e0d1ae643f
   - enabled: 1
-    path: Assets/WorkFolder/Takahashi/Scene/BattleSceneCanvas.unity
+    path: Assets/WorkFolder/Takahashi/Scene/BattleScene.unity
     guid: b4ec08dc6d62094498d36619a64f6eaf
   - enabled: 1
     path: Assets/WorkFolder/Takahashi/Scene/ClearScene.unity
     guid: cdac7e31f4358934bae4bfeca5f0a8fe
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1d8dec542bfa09a4d897213c9605a737, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6348dd0d8eefbf34890da3192137c277, type: 2}

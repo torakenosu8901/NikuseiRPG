@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,9 +8,9 @@ using UnityEditor;
 namespace GarageKit
 {
     /// <summary>
-    /// V‹KƒXƒNƒŠƒvƒg¶¬‚ÉƒeƒLƒXƒgƒGƒ“ƒR[ƒh‚ğUTF-8‚É•ÏŠ·‚·‚é
+    /// æ–°è¦ã‚¹ã‚¯ãƒªãƒ—ãƒˆç”Ÿæˆæ™‚ã«ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã‚’UTF-8ã«å¤‰æ›ã™ã‚‹
     /// </summary>
-    public class AssetPostprocessUTF8Encode : AssetPostprocessor
+    public class AssetPostprocessUTF8Encode/* : AssetPostprocessor*/
     {
         public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetsPath)
         {
@@ -21,29 +21,29 @@ namespace GarageKit
                     string ext = Path.GetExtension(asset);
                     if (ext == ".cs" || ext == ".js" || ext == ".boo")
                     {
-                        // ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+                        // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
                         FileStream fs = new FileStream(asset, FileMode.Open, FileAccess.Read);
                         byte[] bs = new byte[fs.Length];
                         fs.Read(bs, 0, bs.Length);
                         fs.Close();
 
-                        // ƒGƒ“ƒR[ƒh‚ğæ“¾
+                        // ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
                         Encoding enc = GetCode(bs); ;
 
                         if (enc != null)
                         {
-                            // "utf-8"ˆÈŠO‚ğˆ—‚·‚é
+                            // "utf-8"ä»¥å¤–ã‚’å‡¦ç†ã™ã‚‹
                             if (enc.CodePage == 65001)
                             {
-                                // BOM‚ğŠm”F
+                                // BOMã‚’ç¢ºèª
                                 if ((bs[0] == 0xEF) && (bs[1] == 0xBB) && (bs[2] == 0xBF))
                                     return;
                             }
 
-                            // ‰üsƒR[ƒh‚Ì’u‚«Š·‚¦
+                            // æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã®ç½®ãæ›ãˆ
                             string contents = enc.GetString(bs).Replace("\r\n", "\n");
 
-                            // ƒtƒ@ƒCƒ‹‚ğ•Û‘¶
+                            // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜
                             File.WriteAllText(asset, contents, Encoding.GetEncoding("utf-8"));
                             Debug.LogWarning("convert script encode to UTF-8N : " + asset);
                         }
@@ -53,16 +53,16 @@ namespace GarageKit
         }
 
         /// <summary>
-        /// •¶šƒR[ƒh‚ğ”»•Ê‚·‚é
+        /// æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’åˆ¤åˆ¥ã™ã‚‹
         /// </summary>
         /// <remarks>
-        /// Jcode.pm‚Ìgetcodeƒƒ\ƒbƒh‚ğˆÚA‚µ‚½‚à‚Ì‚Å‚·B
+        /// Jcode.pmã®getcodeãƒ¡ã‚½ãƒƒãƒ‰ã‚’ç§»æ¤ã—ãŸã‚‚ã®ã§ã™ã€‚
         /// Jcode.pm(http://openlab.ring.gr.jp/Jcode/index-j.html)
-        /// Jcode.pm‚ÌCopyright: Copyright 1999-2005 Dan Kogai
+        /// Jcode.pmã®Copyright: Copyright 1999-2005 Dan Kogai
         /// </remarks>
-        /// <param name="bytes">•¶šƒR[ƒh‚ğ’²‚×‚éƒf[ƒ^</param>
-        /// <returns>“K“–‚Æv‚í‚ê‚éEncodingƒIƒuƒWƒFƒNƒgB
-        /// ”»’f‚Å‚«‚È‚©‚Á‚½‚ÍnullB</returns>
+        /// <param name="bytes">æ–‡å­—ã‚³ãƒ¼ãƒ‰ã‚’èª¿ã¹ã‚‹ãƒ‡ãƒ¼ã‚¿</param>
+        /// <returns>é©å½“ã¨æ€ã‚ã‚Œã‚‹Encodingã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã€‚
+        /// åˆ¤æ–­ã§ããªã‹ã£ãŸæ™‚ã¯nullã€‚</returns>
         private static Encoding GetCode(byte[] bytes)
         {
             const byte bEscape = 0x1B;
@@ -78,7 +78,7 @@ namespace GarageKit
             int len = bytes.Length;
             byte b1, b2, b3, b4;
 
-            // Encode::is_utf8 ‚Í–³‹
+            // Encode::is_utf8 ã¯ç„¡è¦–
 
             bool isBinary = false;
             for (int i = 0; i < len; i++)

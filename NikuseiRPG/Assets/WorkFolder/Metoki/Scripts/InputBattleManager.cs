@@ -33,7 +33,10 @@ public class InputBattleManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
-        else Destroy(this.gameObject);
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     //--------------------------
 

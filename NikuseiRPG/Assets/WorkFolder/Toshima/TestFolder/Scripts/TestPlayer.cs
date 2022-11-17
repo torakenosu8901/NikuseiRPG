@@ -17,20 +17,25 @@ public class TestPlayer : MonoBehaviour
 
     public static TestPlayer Instance;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
 
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
     public void InitPos(Vector3 InitPos)
     {
-        this.gameObject.transform.position = InitPos;
+        this.gameObject.transform.position = new Vector3(InitPos.x,InitPos.y,-1);
     }
 
     // Update is called once per frame
@@ -51,5 +56,10 @@ public class TestPlayer : MonoBehaviour
     public bool GetMoveNow()
     {
         return MoveNow;
+    }
+
+    public Vector3 GetPos()
+    {
+        return rb.position;
     }
 }

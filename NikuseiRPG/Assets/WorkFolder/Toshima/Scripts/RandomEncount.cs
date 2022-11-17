@@ -28,6 +28,8 @@ public class RandomEncount : MonoBehaviour
     {
         if (RandomCount >= 100f)
         {
+            AdventureIndex.Instance.UpdateAdventurePosition(TestPlayer.Instance.GetPos());
+            SoundManager.instance.PlayBGM(BGMLabel.BGM3);
             SceneManager.LoadScene(SceneName);
         }
 

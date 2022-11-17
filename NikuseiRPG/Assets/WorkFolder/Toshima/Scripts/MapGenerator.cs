@@ -32,6 +32,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private GameObject MapGrids;
 
+    //シングルトン化
     public static MapGenerator instance;
 
     //現在のマップが横に何マスあるか
@@ -55,7 +56,7 @@ public class MapGenerator : MonoBehaviour
         string[] line = csv.Split('\n');
 
         //一行に切り分けたものを一文字に切り分ける(要素数が横列の総数)
-        string[] value = line[0].Split(',');
+        string[] value = line[1].Split(',');
 
         //読み込んだ全文を一文字に切り分ける
         mapIndex = csv.Split(new[] { '\n', '\r', ',' }, System.StringSplitOptions.RemoveEmptyEntries);
@@ -135,8 +136,18 @@ public class MapGenerator : MonoBehaviour
                         respawnGrid = obj.GameObject();
                         break;
 
-                        //想定外の挙動を取った場合(もしくは値がレンジ外だった場合)
-                        default:
+                        case "5":
+                        //初期地点用のスプライトを貼り付ける
+                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[3];
+                        //エンカウント用のトリガーを設定する(サイズの調整も行う)
+                        obj.AddComponent<BoxCollider2D>().isTrigger = true;
+                        obj.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
+                        obj.AddComponent<CleaGrid>();
+                        respawnGrid = obj.GameObject();
+                        break;
+
+                    //想定外の挙動を取った場合(もしくは値がレンジ外だった場合)
+                    default:
                         Debug.Log("レンジ外の文字列が混入 : " + mapIndex[y * HorizontalGridNum + x]);
                         break;
                 }
@@ -165,7 +176,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// 不必要な当たり判定をつけないための処理
+    /// 不必要な当たり判定をつけないための処理(未完成)
     /// </summary>
     /// <param name="index">判定を取るグリッドの情報</param>
     /// <returns></returns>
@@ -185,7 +196,15 @@ public class MapGenerator : MonoBehaviour
         //マップを生成する
         MapGenerate();
 
-        //テスト用関数
-        TestPlayer.Instance.InitPos(respawnGrid.transform.position);
+        //プレイヤーの位置調整
+        if(AdventureIndex.Instance.GetOmen())
+        {
+            TestPlayer.Instance.InitPos(respawnGrid.transform.position);
+            AdventureIndex.Instance.ChangeOmenBool(false);
+        }
+        else
+        {
+            TestPlayer.Instance.InitPos(AdventureIndex.Instance.GetAdventurePosition());
+        }
     }
 }

@@ -47,3 +47,4 @@ MonoBehaviour:
   bgmSource: {fileID: 0}
   soundData: {fileID: 11400000, guid: b2bb54da546f96e499da06ef55c8faff, type: 2}
   SEData: {fileID: 11400000, guid: 7050005c365336547908281b155d6cfa, type: 2}
+  VCData: {fileID: 11400000, guid: a5978be1e1a467940854bbb3c14be5d7, type: 2}

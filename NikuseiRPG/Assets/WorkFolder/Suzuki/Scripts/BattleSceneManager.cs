@@ -60,7 +60,8 @@ public class BattleSceneManager : MonoBehaviour
         enemyDef = enemyList.EnemyParamList[0].def;
         // enemyLv = enemyList.EnemyParamList[0].lv;
         AgiComparison();
-        TextSpeed.Instance.EnemyName();
+        //TextSpeed.Instance.EnemyName();
+        //MessageScrollManager.Instance.EnemyName();
     }
     //----------死んだかの判定の関数--------------
     public void KillConfirmation()
@@ -81,8 +82,10 @@ public class BattleSceneManager : MonoBehaviour
             // プレイヤーの勝利
             if (winOrLose)
             {
-                TextSpeed.Instance._msg += "\n" + enemyName + "を倒した！";
-                TextSpeed.Instance.StartTextCoroutine();
+                //TextSpeed.Instance._msg += "\n" + enemyName + "を倒した！";
+                //TextSpeed.Instance.StartTextCoroutine();
+                //MessageScrollManager.Instance._msg += "\n" + enemyName + "を倒した！";
+                //MessageScrollManager.Instance.StartTextCoroutine();
                 battlePhase = true;
                 //---------------------------------------
                 //   シーン遷移の処理をここに書く
@@ -91,8 +94,10 @@ public class BattleSceneManager : MonoBehaviour
             // プレイヤーの敗北
             else
             {
-                TextSpeed.Instance._msg += "\n" + "GAMEOBERA";
-                TextSpeed.Instance.StartTextCoroutine();
+                //TextSpeed.Instance._msg += "\n" + "GAMEOBERA";
+                //TextSpeed.Instance.StartTextCoroutine();
+                //MessageScrollManager.Instance._msg += "\n" + "GAMEOBERA";
+                //MessageScrollManager.Instance.StartTextCoroutine();
                 battlePhase = true;
                 //---------------------------------------
                 //   シーン遷移の処理をここに書く
@@ -132,14 +137,16 @@ public class BattleSceneManager : MonoBehaviour
         {
             // 敵の方が早い場合
             EnemyAttack();
-            TextSpeed.Instance.EnemyAtkText(); 
+            //TextSpeed.Instance.EnemyAtkText(); 
+            //MessageScrollManager.Instance.EnemyAtkText();
             KillConfirmation();
         }
         else
         {
             // プレイヤーの方が早い場合
             PlayerAttack();
-            TextSpeed.Instance.PlayerAtkText();
+            //TextSpeed.Instance.PlayerAtkText();
+            //MessageScrollManager.Instance.PlayerAtkText();
             KillConfirmation();
             Debug.Log(1);
         }

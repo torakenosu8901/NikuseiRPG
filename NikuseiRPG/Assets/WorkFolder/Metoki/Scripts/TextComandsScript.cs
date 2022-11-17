@@ -60,17 +60,30 @@ public class TextComandsScript : MonoBehaviour
     }
     void Update()
     {
-        if (TextSpeed.Instance.textControl == false) 
+        //if (TextSpeed.Instance.textControl == false) 
+        //{
+
+        //    if(Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        TextSpeed.Instance.ChangeMessageSpeed(0.0f);
+        //    }
+
+        //    return;
+
+        //}
+
+        if (MessageScrollManager.Instance.textControl == false)
         {
-            
-            if(Input.GetKeyDown(KeyCode.A))
+
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                TextSpeed.Instance.ChangeMessageSpeed(0.0f);
+                MessageScrollManager.Instance.ChangeMessageSpeed(0.0f);
             }
-            
+
             return;
-           
+
         }
+
         //アイテムコマンドにカーソルがいってるとき
         if (itemSentakuPanel.activeSelf)
         {
