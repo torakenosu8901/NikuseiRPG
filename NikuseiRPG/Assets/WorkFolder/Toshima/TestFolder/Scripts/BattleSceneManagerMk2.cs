@@ -167,7 +167,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
                         {
                             if(_parCharacter[j].type == CharacterType.Player)
                             {
-                                Void.Instance.Move(1);
+                                PlayerViewChange.Instance.Move(1);
                                 SoundManager.instance.PlayVC(VCLabel.VC8);
                                 coroutine = Attack(_parCharacter[i], _parCharacter[j]);
                                 yield return StartCoroutine(coroutine);
@@ -246,7 +246,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
         {
             //敗北処理
             str = "lose";
-            Void.Instance.Dead(0);
+            PlayerViewChange.Instance.Dead(0);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("全滅した"));            
             for (int i=0;i<_parCharacter.Count;i++)
             {
@@ -260,7 +260,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             //勝利処理
             str = "win";
             SoundManager.instance.PlayVC(VCLabel.VC9);
-            Void.Instance.Dead(1);
+            PlayerViewChange.Instance.Dead(1);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("敵を倒した！"));
             for (int i = 0; i < _parCharacter.Count; i++)
             {

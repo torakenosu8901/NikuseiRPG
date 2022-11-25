@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/WorkFolder/Takahashi/Scene/ClearScene.unity
     guid: cdac7e31f4358934bae4bfeca5f0a8fe
+  - enabled: 1
+    path: Assets/WorkFolder/Toshima/Scene/testscene.unity
+    guid: 26055613768e2e54c8a245a8ab6cdf53
+  - enabled: 1
+    path: Assets/WorkFolder/Toshima/Scene/test002.unity
+    guid: 8caaeb2ab04fc20459a837bbc35d9f6c
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 1d8dec542bfa09a4d897213c9605a737, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6348dd0d8eefbf34890da3192137c277, type: 2}

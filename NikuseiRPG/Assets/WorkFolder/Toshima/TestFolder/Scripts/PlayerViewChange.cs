@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Void : MonoBehaviour
+public class PlayerViewChange : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> Icon;
 
-    public static Void Instance;
+    public static PlayerViewChange Instance;
 
     private void Start()
     {
