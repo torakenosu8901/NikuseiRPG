@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemData", menuName = "ScriptableObjects/CreateItemParamAsset")]
 public class ItemList : ScriptableObject
 {
-    public List<ItemParam> EnemyParamList = new List<ItemParam>();
+    public List<ItemParam> ItemParamList = new List<ItemParam>();
 }
 [System.Serializable]
 public class ItemParam

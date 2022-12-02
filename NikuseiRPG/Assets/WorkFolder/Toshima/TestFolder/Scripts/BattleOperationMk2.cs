@@ -274,12 +274,9 @@ public class BattleOperationMk2 : MonoBehaviour
                     case 0:
                         if(num == 0)
                         {
-                            //アイテム選択に移行する
-                            //CommandObject[0].SetActive(false);
-                            //IEnumerator coroutine = BattleOperationMk2.Instance.OperationSelect(1,step);
-                            //yield return StartCoroutine(coroutine);
-                            //yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step));
-                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("アイテムなぞ…\n使ってんじゃ…\nねぇえええええ！！"));
+                            yield return StartCoroutine(ItemController.Instance.ItemPhase());
+
+                            yield break;                        
                         }
                         else if(num == 1)
                         {
@@ -293,7 +290,9 @@ public class BattleOperationMk2 : MonoBehaviour
                         else if(num == 2)
                         {
                             //逃走処理
-                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("逃走は未実装故…\n戦え！！命の続く限り！！"));
+                            yield return StartCoroutine(EscapeController.Instance.EscapePhase());
+
+                            yield break;
                         }
                         break;
 
