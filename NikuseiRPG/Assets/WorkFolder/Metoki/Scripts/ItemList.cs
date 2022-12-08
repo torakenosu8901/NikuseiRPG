@@ -10,7 +10,7 @@ public class ItemList : ScriptableObject
 public class ItemParam
 {
     [SerializeField]
-    public string ItemName = "パンチ";
+    public string itemName = "仮アイテム";
     [SerializeField]
     public int itemEffect = 0;
    

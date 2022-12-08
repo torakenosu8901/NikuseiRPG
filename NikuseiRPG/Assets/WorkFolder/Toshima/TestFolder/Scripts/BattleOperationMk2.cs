@@ -9,6 +9,9 @@ public class BattleOperationMk2 : MonoBehaviour
 {
     #region 選択演出用のゲームオブジェクト達
 
+    //アイテムリスト反映
+    public ItemList itemList;
+
     //使用するテキストウィンドウをまとめた変数
     [SerializeField]
     private List<GameObject> CommandObject;
@@ -40,7 +43,24 @@ public class BattleOperationMk2 : MonoBehaviour
     [SerializeField]
     private List<Slider> NPber;
 
+    //アイテムリスト
+    [SerializeField]
+    private GameObject itemListPanel;
 
+    [SerializeField]
+    private GameObject itemListText;
+
+    [SerializeField]
+    private GameObject itemPanel;
+
+    [SerializeField]
+    private GameObject itemPanelSecond;
+
+    [SerializeField]
+    private GameObject itemPanelSared;
+
+    public string itemName;
+  
     #endregion
 
     //シングルトン化
@@ -60,6 +80,8 @@ public class BattleOperationMk2 : MonoBehaviour
     private void Start()
     {
         NPberUpdate();
+        itemListPanel.SetActive(false);
+        itemName = itemList.ItemParamList[0].itemName;
     }
 
     public void NPberUpdate()
@@ -274,9 +296,42 @@ public class BattleOperationMk2 : MonoBehaviour
                     case 0:
                         if(num == 0)
                         {
-                            yield return StartCoroutine(ItemController.Instance.ItemPhase());
+                            itemListPanel.SetActive(true);
 
-                            yield break;                        
+                            if (itemListPanel.activeSelf)
+                            {
+                                itemPanel.SetActive(true);
+                                //itemListText = itemName;
+                                if(Input.GetKeyDown(KeyCode.RightArrow))
+                                {
+                                    itemPanel.SetActive(false);
+                                    itemPanelSecond.SetActive(true);
+                                }
+                                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                {
+                                    itemPanelSecond.SetActive(false);
+                                    itemPanelSared.SetActive(true);
+                                }
+                                else if(Input.GetKeyDown(KeyCode.LeftArrow))
+                                {
+                                    itemPanel.SetActive(true);
+                                    itemPanelSecond.SetActive(false);
+                                }
+                                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                {
+                                    itemPanelSared.SetActive(false);
+                                    itemPanelSecond.SetActive(true);
+                                }
+                                if (Input.GetKeyDown(KeyCode.A))
+                                {
+                                    itemListPanel.SetActive(false);
+                                }
+                                //アイテム処理
+                                yield return StartCoroutine(ItemController.Instance.ItemPhase());
+
+                                yield break;
+                                
+                            }
                         }
                         else if(num == 1)
                         {

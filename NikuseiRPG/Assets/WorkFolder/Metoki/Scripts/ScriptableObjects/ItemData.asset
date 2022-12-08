@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728858c7dfe65544c9c4a211bec3d81c, type: 3}
   m_Name: ItemData
   m_EditorClassIdentifier: 
-  EnemyParamList: []
+  ItemParamList:
+  - ItemName: "\u4EEE\u30A2\u30A4\u30C6\u30E0"
+    itemEffect: 0

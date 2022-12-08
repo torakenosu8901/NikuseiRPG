@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    public ItemList itemList;
     public static ItemController Instance = null;
+
+    public string itemName;
+
+    [SerializeField]
+    private GameObject itemText; 
+
+    public void Start()
+    {
+        itemName = itemList.ItemParamList[0].itemName;
+    }
+
     private void Awake()
     {
         if (Instance == null)
