@@ -157,7 +157,8 @@ MonoBehaviour:
   gridSprite:
   - {fileID: 7482667652216324306, guid: 436f366eeb838284e8f085a058e452ff, type: 3}
   - {fileID: 21300000, guid: 61395b0901cf77f42a5c137e0c84a507, type: 3}
-  - {fileID: 21300000, guid: acd1d33fda49eb24c8527a6f80f70f5e, type: 3}
+  - {fileID: 21300000, guid: c9adf53cb9fb91a4ebd6db87283fee21, type: 3}
+  - {fileID: 21300000, guid: e2731005d8f452c43af7a9a8dbd242f9, type: 3}
   - {fileID: 21300000, guid: 239ceba3cdf82d04686e191b5ebbc87b, type: 3}
   mapGrid: []
   respawnGrid: {fileID: 0}
@@ -548,7 +549,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.9, y: 2.22}
+    oldSize: {x: 1.5, y: 1.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -619,7 +620,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0f061b4bd0275bc4eb60f2af31e7375a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01567c22987f4d647802f4aa15498e3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -124,7 +124,7 @@ public class MapGenerator : MonoBehaviour
                         obj.AddComponent<BoxCollider2D>().isTrigger = true;
                         obj.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
                         //エンカウント用のスプライトを貼り付ける(仮)
-                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[2];
+                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[3];
                         //エンカウント用のソースコードを張り付ける
                         obj.AddComponent<GridEncount>();
                         break;
@@ -132,13 +132,13 @@ public class MapGenerator : MonoBehaviour
                         //取り出した一文字が「4」(初期地点)だった場合
                         case "4":
                         //初期地点用のスプライトを貼り付ける
-                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[3];
+                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[4];
                         respawnGrid = obj.GameObject();
                         break;
 
                         case "5":
                         //初期地点用のスプライトを貼り付ける
-                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[3];
+                        obj.GetComponent<SpriteRenderer>().sprite = gridSprite[4];
                         //エンカウント用のトリガーを設定する(サイズの調整も行う)
                         obj.AddComponent<BoxCollider2D>().isTrigger = true;
                         obj.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
