@@ -65,7 +65,7 @@ public class SoundManager : SingletonClass<SoundManager>
         AudioSource se = seSourceList[nextSESourceNum];
         se.PlayOneShot(SEData.SEDataPairs[(int)seLabel].audioClip);
         nextSESourceNum = (++nextSESourceNum < SE_SOURCE_NUM) ? nextSESourceNum : 0;
-        bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
+        //bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
         
         
     }
