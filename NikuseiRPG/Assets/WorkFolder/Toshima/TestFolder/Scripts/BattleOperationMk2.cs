@@ -332,7 +332,7 @@ public class BattleOperationMk2 : MonoBehaviour
                                     CommandObject[4].SetActive(false);
                                     CommandObject[0].SetActive(true);
                                     InitTextBox(0);
-                                    Void.Instance.Move(0);
+                                    PlayerViewChange.Instance.Move(0);
                                     SoundManager.instance.PlayVC(VCLabel.VC3);                                    
                                     yield return StartCoroutine(BattleSceneManagerMk2.Instance.Attack(player, ParamList[i]));
                                 }
