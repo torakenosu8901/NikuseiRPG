@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +8,30 @@ public class SoundManager : SingletonClass<SoundManager>
 {
     private const string BGM_PATH = "Audio/BGM";
     private const string SE_PATH = "Audio/SE";
+    private const string VC_PATH = "Audio/VC";
     private const string SOUND_OBJECT_NAME = "SoundManager";
     private const int BGM_SOURCE_NUM = 1;
     private const int SE_SOURCE_NUM = 5;
+    private const int VC_SOURCE_NUM = 5;
     private const float FADE_OUT_SECONDO = 0.5f;
     private const float BGM_VOLUME = 0.5f;
     private const float SE_VOLUME = 0.3f;
+    private const float VC_VOLUME = 0.3f;
 
     private bool isFadeOut = false;
     private float fadeDeltaTime = 0f;
     private int nextSESourceNum = 0;
+    private int nextVCSourceNum = 0;
     private BGMLabel currentBGM = BGMLabel.BGM1;
     private BGMLabel nextBGM = BGMLabel.BGM1;
 
-    // BGM‚Íˆê‚Â‚Ã‚Â–Â‚é‚ªASE‚Í•¡”“¯‚É–Â‚é‚±‚Æ‚ª‚ ‚é
+    // BGMã¯ä¸€ã¤ã¥ã¤é³´ã‚‹ãŒã€SEã¯è¤‡æ•°åŒæ™‚ã«é³´ã‚‹ã“ã¨ãŒã‚ã‚‹
     [SerializeField] private AudioSource bgmSource;
     private List<AudioSource> seSourceList;
+    private List<AudioSource> vcSourceList;
     [SerializeField] private SoundData soundData;
     [SerializeField] private SEData SEData;
+    [SerializeField] private VCData VCData;
 
 
 
@@ -46,6 +52,8 @@ public class SoundManager : SingletonClass<SoundManager>
         bgmSource = audioSources.First();
         seSourceList = audioSources.Skip(BGM_SOURCE_NUM).ToList();
         seSourceList.ForEach(a => { a.volume = SE_VOLUME; a.loop = false; });
+        vcSourceList = audioSources.Skip(BGM_SOURCE_NUM).ToList();
+        vcSourceList.ForEach(a => { a.volume = VC_VOLUME; a.loop = false; });
 
         // bgmClipDic = (Resources.LoadAll(BGM_PATH) as Object[]).ToDictionary(bgm => bgm.name, bgm => (AudioClip)bgm);
         // seClipDic = (Resources.LoadAll(SE_PATH) as Object[]).ToDictionary(se => se.name, se => (AudioClip)se);
@@ -53,7 +61,7 @@ public class SoundManager : SingletonClass<SoundManager>
 
 
     /// <summary>
-    /// w’è‚µ‚½ƒtƒ@ƒCƒ‹–¼‚ÌSE‚ğ—¬‚·B‘æ“ñˆø”‚Ìdelay‚Éw’è‚µ‚½ŠÔ‚¾‚¯Ä¶‚Ü‚Å‚ÌŠÔŠu‚ğ‹ó‚¯‚é
+    /// æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«åã®SEã‚’æµã™ã€‚ç¬¬äºŒå¼•æ•°ã®delayã«æŒ‡å®šã—ãŸæ™‚é–“ã ã‘å†ç”Ÿã¾ã§ã®é–“éš”ã‚’ç©ºã‘ã‚‹
     /// </summary>
     /// /// <param name="seLabel"></param>
     /// /// <param name="delay"></param>
@@ -69,10 +77,27 @@ public class SoundManager : SingletonClass<SoundManager>
         
         
     }
-    
 
     /// <summary>
-    /// w’è‚µ‚½BGM‚ğ—¬‚·B‚·‚Å‚É—¬‚ê‚Ä‚¢‚éê‡‚ÍNext‚É—\–ñ‚µA—¬‚ê‚Ä‚¢‚éBGM‚ğƒtƒF[ƒhƒAƒEƒg‚³‚¹‚é
+    /// æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«åã®VCã‚’æµã™ã€‚ç¬¬äºŒå¼•æ•°ã®delayã«æŒ‡å®šã—ãŸæ™‚é–“ã ã‘å†ç”Ÿã¾ã§ã®é–“éš”ã‚’ç©ºã‘ã‚‹
+    /// </summary>
+    /// /// <param name="vcLabel"></param>
+    /// /// <param name="delay"></param>
+    public void PlayVC(VCLabel vcLabel, float delay = 0.0f) => StartCoroutine(DelayPlayVC(vcLabel, delay));
+
+    private IEnumerator DelayPlayVC(VCLabel vcLabel, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioSource vc = vcSourceList[nextVCSourceNum];
+        vc.PlayOneShot(VCData.VCDataPairs[(int)vcLabel].audioClip);
+        nextVCSourceNum = (++nextVCSourceNum < VC_SOURCE_NUM) ? nextVCSourceNum : 0;
+        //bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
+
+
+    }
+
+    /// <summary>
+    /// æŒ‡å®šã—ãŸBGMã‚’æµã™ã€‚ã™ã§ã«æµã‚Œã¦ã„ã‚‹å ´åˆã¯Nextã«äºˆç´„ã—ã€æµã‚Œã¦ã„ã‚‹BGMã‚’ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã•ã›ã‚‹
     /// </summary>
     /// <param name="bgmLabel"></param>
     public void PlayBGM(BGMLabel bgmLabel)
@@ -96,7 +121,7 @@ public class SoundManager : SingletonClass<SoundManager>
 
 
     /// <summary>
-    /// BGM‚ğ~‚ß‚é
+    /// BGMã‚’æ­¢ã‚ã‚‹
     /// </summary>
     public void StopSound()
     {
@@ -141,4 +166,18 @@ public class SoundManager : SingletonClass<SoundManager>
       SE2,
       SE3
     }
+
+public enum VCLabel
+{
+    VC1,
+    VC2,
+    VC3,
+    VC4,
+    VC5,
+    VC6,
+    VC7,
+    VC8,
+    VC9,
+    VC10
+}
 

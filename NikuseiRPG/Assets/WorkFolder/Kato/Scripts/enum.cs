@@ -1,4 +1,4 @@
-public enum BGM
+﻿public enum BGM
 {
     BGM1
 }
