@@ -12,6 +12,8 @@ public class BattleOperationMk2 : MonoBehaviour
     //アイテムリスト反映
     public ItemList itemList;
 
+    public SkillList skillList;
+
     //使用するテキストウィンドウをまとめた変数
     [SerializeField]
     private List<GameObject> CommandObject;
@@ -48,19 +50,48 @@ public class BattleOperationMk2 : MonoBehaviour
     private GameObject itemListPanel;
 
     [SerializeField]
-    private GameObject itemListText;
+    private Text itemListText;
 
     [SerializeField]
-    private GameObject itemPanel;
+    private Text itemListTextSecond;
 
     [SerializeField]
-    private GameObject itemPanelSecond;
+    private List<Text> itemListTextThird;
 
     [SerializeField]
-    private GameObject itemPanelSared;
+    private GameObject sentakPanel;
 
-    public string itemName;
-  
+    [SerializeField]
+    private GameObject sentakPanelSecond;
+
+    [SerializeField]
+    private GameObject sentakPanelThird;
+
+    private string[] itemName = new string[3];
+
+    //スキルリスト
+    [SerializeField]
+    private GameObject skillListPanel;
+
+    [SerializeField]
+    private Text skillListText;
+
+    [SerializeField]
+    private Text skillListTextSecond;
+
+    [SerializeField]
+    private Text skillListTextThird;
+
+    [SerializeField]
+    private GameObject skillPanel;
+
+    [SerializeField]
+    private GameObject skillPanelSecond;
+
+    [SerializeField]
+    private GameObject skillPanelSared;
+
+    private string[] skillName = new string[2];
     #endregion
 
     //シングルトン化
@@ -79,9 +110,33 @@ public class BattleOperationMk2 : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(1);
         NPberUpdate();
+        Debug.Log(2);
+        sentakPanel.SetActive(false);
+        Debug.Log(3);
+        sentakPanelSecond.SetActive(false);
+        Debug.Log(4);
+        sentakPanelThird.SetActive(false);
+        Debug.Log(5);
         itemListPanel.SetActive(false);
-        itemName = itemList.ItemParamList[0].itemName;
+        Debug.Log(6);
+       
+        skillListPanel.SetActive(false);
+        Debug.Log(10);
+        /*skillName[0] = skillList.SkillParamList[0].skillName;
+        Debug.Log(11);
+        skillName[1] = skillList.SkillParamList[1].skillName;
+        Debug.Log(12);
+        skillName[2] = skillList.SkillParamList[2].skillName;*/
+        /*itemName[0] = itemList.ItemParamList[0].itemName;
+        Debug.Log(11);
+        skillName[1] = itemList.ItemParamList[1].itemName;
+        Debug.Log(12);
+        skillName[2] = itemList.ItemParamList[2].itemName;*/
+        Debug.Log(13);
+
+     
     }
 
     public void NPberUpdate()
@@ -93,16 +148,24 @@ public class BattleOperationMk2 : MonoBehaviour
         NPber[1].value = BattleSceneManagerMk2.Instance.GetCharcterList()[1].np;
     }
 
-    private void TextUpdate(int step,int scrollnum)
+    private void TextUpdate(int step, int scrollnum)
     {
-        switch(step)
+        switch (step)
         {
             case 0:
                 //処理なし
-                break; 
+                break;
 
             case 1:
                 //アイテム一覧のテキスト更新
+                if(scrollnum == 0)
+                {
+                    for (int i = 0; i < itemList.ItemParamList.Count; i++)
+                    {
+                        
+                        ItemDerivation[i].text = itemList.ItemParamList[i].itemName;
+                    }
+                }
                 break;
 
             case 2:
@@ -111,6 +174,13 @@ public class BattleOperationMk2 : MonoBehaviour
 
             case 3:
                 //スキル一覧のテキスト更新
+                if(scrollnum == 0)
+                {
+                    for (int i = 0; i < skillList.SkillParamList.Count; i++)
+                    {
+                        SkillDerivation[i].text = skillList.SkillParamList[i].skillName;
+                    }
+                }
                 break;
 
             case 4:
@@ -119,7 +189,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 int count = 0;
                 for (int i = 0; i < ParamList.Count; i++)
                 {
-                    if(ParamList[i].type == CharacterType.Enemy && count< EnemyDerivation.Count)
+                    if (ParamList[i].type == CharacterType.Enemy && count < EnemyDerivation.Count)
                     {
                         EnemyDerivation[count].text = ParamList[i].name;
                         count++;
@@ -189,7 +259,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
-                TextUpdate(4,0);
+                TextUpdate(4, 0);
                 break;
 
             case 5:
@@ -202,7 +272,7 @@ public class BattleOperationMk2 : MonoBehaviour
         }
     }
 
-    public IEnumerator OperationSelect(int step,int previous, CharacterParam player)
+    public IEnumerator OperationSelect(int step, int previous, CharacterParam player)
     {
 
         //string str = "";
@@ -246,20 +316,20 @@ public class BattleOperationMk2 : MonoBehaviour
 
             case 5:
                 CommandObject[step].SetActive(true);
-                maxnum = PlayerDerivation.Count;                
+                maxnum = PlayerDerivation.Count;
                 break;
         }
-       
+
         //Debug.Log(num); 
 
         while (true)
-        {            
+        {
             //右矢印キーが入力された時の処理
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.UpArrow))
             {
 
                 //現在選択中のパネルを半透明にする
-                TextTranslucent(step,num);
+                TextTranslucent(step, num);
 
                 //次のパネルを選択する
                 num = (num + 1) % maxnum;
@@ -272,7 +342,7 @@ public class BattleOperationMk2 : MonoBehaviour
 
             }
             //右矢印キーが入力された時の処理
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 //現在選択中のパネルを半透明にする
                 TextTranslucent(step, num);
@@ -284,7 +354,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 Debug.Log(num);
 
                 //前のパネルを非透明にする
-                TextOpaque(step,num);
+                TextOpaque(step, num);
             }
             //決定キーとしている「Z」が押されたらパネルを選択する
             else if (Input.GetKeyDown(KeyCode.Z))
@@ -294,69 +364,65 @@ public class BattleOperationMk2 : MonoBehaviour
                 switch (step)
                 {
                     case 0:
-                        if(num == 0)
+                        if (num == 0)
                         {
-                            itemListPanel.SetActive(true);
+                            //                yield break;
+                            //            }
+                            //        
+                            //        
+                            //            if (Input.GetKeyDown(KeyCode.A))
+                            //            {
+                            //                //アイテム処理
+                            //                yield return StartCoroutine(ItemController.Instance.ItemPhase());
 
-                            if (itemListPanel.activeSelf)
-                            {
-                                itemPanel.SetActive(true);
-                                //itemListText = itemName;
-                                if(Input.GetKeyDown(KeyCode.RightArrow))
-                                {
-                                    itemPanel.SetActive(false);
-                                    itemPanelSecond.SetActive(true);
-                                }
-                                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                                {
-                                    itemPanelSecond.SetActive(false);
-                                    itemPanelSared.SetActive(true);
-                                }
-                                else if(Input.GetKeyDown(KeyCode.LeftArrow))
-                                {
-                                    itemPanel.SetActive(true);
-                                    itemPanelSecond.SetActive(false);
-                                }
-                                else if (Input.GetKeyDown(KeyCode.LeftArrow))
-                                {
-                                    itemPanelSared.SetActive(false);
-                                    itemPanelSecond.SetActive(true);
-                                }
-                                if (Input.GetKeyDown(KeyCode.A))
-                                {
-                                    itemListPanel.SetActive(false);
-                                }
-                                //アイテム処理
-                                yield return StartCoroutine(ItemController.Instance.ItemPhase());
+                            //                yield break;
+                            //            }
+                            //        
+                            //       
+                            //            if (Input.GetKeyDown(KeyCode.A))
+                            //            {
+                            //                //アイテム処理
+                            //                yield return StartCoroutine(ItemController.Instance.ItemPhase());
 
-                                yield break;
-                                
-                            }
-                        }
-                        else if(num == 1)
-                        {
-                            //攻撃タイプ選択に移行する
-                            CommandObject[0].SetActive(false);
-                            //IEnumerator coroutine = BattleOperationMk2.Instance.OperationSelect(2 , step);
-                            //yield return StartCoroutine(coroutine);
-                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(2 , step, player));
-                            yield break;
-                        }
-                        else if(num == 2)
-                        {
-                            //逃走処理
-                            yield return StartCoroutine(EscapeController.Instance.EscapePhase());
+                            //                yield break;
+                            //            }
+                            //        }
+                            //    
+                            //
+                            //else if (num == 1)
+                            //{
+                            //    //攻撃タイプ選択に移行する
+                            //    CommandObject[0].SetActive(false);
+                            //    //IEnumerator coroutine = BattleOperationMk2.Instance.OperationSelect(2 , step);
+                            //    //yield return StartCoroutine(coroutine);
+                            //    yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(2, step, player));
+                            //    yield break;
+                            //}
+                            //else if (num == 2)
+                            //{
+                            //    //逃走処理
+                            //    yield return StartCoroutine(EscapeController.Instance.EscapePhase());
 
+                            //    yield break;
+                            //通常攻撃の処理を書く
+                            TextUpdate(1, 0);
+
+                            CommandObject[1].SetActive(false);
+                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step, player));
                             yield break;
                         }
                         break;
 
                     case 1:
+                        {
                         //アイテム一覧の処理を書く
-                        continue;
-                        //break;
+                            Debug.Log("Ok");
+                            yield return StartCoroutine(ItemController.Instance.ItemPhase(num));
+                            yield break;
+                        }
+                    break;
 
-                    case 2:                      
+                    case 2:
                         if (num == 0)
                         {
                             //通常攻撃の処理を書く
@@ -366,8 +432,41 @@ public class BattleOperationMk2 : MonoBehaviour
                         }
                         else if (num == 1)
                         {
+                            skillListPanel.SetActive(false);
+
+                            if (skillListPanel.activeSelf)
+                            {
+                                skillPanel.SetActive(true);
+                                skillListText.text = skillName[0];
+                                skillListTextSecond.text = skillName[1];
+                                skillListTextThird.text = skillName[2];
+                                if (Input.GetKeyDown(KeyCode.RightArrow))
+                                {
+                                    skillPanel.SetActive(false);
+                                    skillPanelSecond.SetActive(true);
+                                }
+                                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                {
+                                    skillPanelSecond.SetActive(false);
+                                    skillPanelSared.SetActive(true);
+                                }
+                                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                {
+                                    skillPanel.SetActive(true);
+                                    skillPanelSecond.SetActive(false);
+                                }
+                                else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                {
+                                    skillPanelSared.SetActive(false);
+                                    skillPanelSecond.SetActive(true);
+                                }
+                                if (Input.GetKeyDown(KeyCode.A))
+                                {
+                                    skillListPanel.SetActive(false);
+                                }
                             //スキル選択に移行する
-                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("技なんてねぇ！！\n俺の武器はこの拳のみだぁ！！"));
+                            TextUpdate(1, 0);
+                            }
                         }
                         break;
 
@@ -381,17 +480,17 @@ public class BattleOperationMk2 : MonoBehaviour
                             List<CharacterParam> ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
                             for (int i = 0; i < ParamList.Count; i++)
                             {
-                                if(EnemyDerivation[num].text == ParamList[i].name)
+                                if (EnemyDerivation[num].text == ParamList[i].name)
                                 {
                                     CommandObject[4].SetActive(false);
                                     CommandObject[0].SetActive(true);
                                     InitTextBox(0);
                                     Void.Instance.Move(0);
-                                    SoundManager.instance.PlayVC(VCLabel.VC3);                                    
+                                    SoundManager.instance.PlayVC(VCLabel.VC3);
                                     yield return StartCoroutine(BattleSceneManagerMk2.Instance.Attack(player, ParamList[i]));
                                 }
                             }
-                            
+
                             yield break;
                         }
                         else if (num == 1)
@@ -400,9 +499,9 @@ public class BattleOperationMk2 : MonoBehaviour
                         }
                         else if (num == 2)
                         {
-                            
+
                         }
-                        else if(num == 3)
+                        else if (num == 3)
                         {
 
                         }
@@ -411,9 +510,9 @@ public class BattleOperationMk2 : MonoBehaviour
                     case 5:
                         maxnum = PlayerDerivation.Count;
                         yield break;
-                }                
+                }
             }
-            else if(Input.GetKeyDown(KeyCode.X))
+            else if (Input.GetKeyDown(KeyCode.X))
             {
                 //1フレーム待機することでInputフレーム回避を狙う
                 yield return null;
@@ -452,13 +551,13 @@ public class BattleOperationMk2 : MonoBehaviour
                         yield return StartCoroutine(coroutine);
 
                         yield break;
-                }               
+                }
             }
             yield return null;
         }
     }
 
-    private void TextTranslucent(int step,int num)
+    private void TextTranslucent(int step, int num)
     {
         switch (step)
         {

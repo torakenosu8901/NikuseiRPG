@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: ItemData
   m_EditorClassIdentifier: 
   ItemParamList:
-  - ItemName: "\u4EEE\u30A2\u30A4\u30C6\u30E0"
-    itemEffect: 0
+  - itemName: "\u306E\u3069\u3054\u3057"
+    itemEffect: 80
+  - itemName: "\u3070\u304F\u3060\u3093"
+    itemEffect: 100
+  - itemName: "\u30D0\u30D5"
+    itemEffect: 1.5

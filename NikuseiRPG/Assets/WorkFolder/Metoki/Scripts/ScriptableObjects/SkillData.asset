@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e209f002e6f486478f38fc01db2bb67, type: 3}
   m_Name: SkillData
   m_EditorClassIdentifier: 
-  EnemyParamList: []
+  SkillParamList:
+  - skillName: "\u30D1\u30F3\u30C1"
+    consumptionNp: 0
+    skillAtk: 0

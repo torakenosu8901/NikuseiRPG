@@ -21,7 +21,7 @@ public class BattleSceneManager : MonoBehaviour
     [Tooltip("スキルを番号で管理するための変数")]
     private int skillNumber;
     // [Tooltip("敵の番号を受け取る")]
-    // private int enemyNumber;
+     private int enemyNumber;
     //-----------仮置きのプレイヤーのステータス----------
     public int np = 3;
     public int atk = 3;
