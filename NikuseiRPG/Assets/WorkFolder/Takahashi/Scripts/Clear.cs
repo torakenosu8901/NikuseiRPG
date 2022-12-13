@@ -12,7 +12,7 @@ public class Clear : MonoBehaviour
         //if (Input.GetKeyDown("joystick button 0"))
         //{
         //    //()の中身はタイトルのシーン名を入れてください
-        //    SceneManager.LoadScene("Title");
+        //    SceneManager.LoadScene("TitleScene");
 
         //    //確認用
         //    Debug.Log("button0が押されました");
@@ -22,7 +22,7 @@ public class Clear : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             //()の中身はタイトルのシーン名を入れてください
-            SceneManager.LoadScene("Title");
+            SceneManager.LoadScene("TitleScene");
         }
     }
 }
