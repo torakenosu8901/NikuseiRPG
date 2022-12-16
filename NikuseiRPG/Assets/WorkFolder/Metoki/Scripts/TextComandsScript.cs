@@ -9,11 +9,11 @@ public class TextComandsScript : MonoBehaviour
     [SerializeField]
     private DamegeData damegeData;
 
-    [SerializeField]
-    private SkillList skillList;
+    //[SerializeField]
+    //private SkillList skillList;
 
     [SerializeField]
-    private ItemList itemList;
+    private ItemData itemList;
 
     [SerializeField]
     private GameObject itemSentakuPanel;

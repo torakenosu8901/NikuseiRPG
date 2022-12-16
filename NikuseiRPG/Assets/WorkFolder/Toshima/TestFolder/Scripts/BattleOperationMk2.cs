@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,9 +72,12 @@ public class BattleOperationMk2 : MonoBehaviour
         NPber[1].value = BattleSceneManagerMk2.Instance.GetCharcterList()[1].np;
     }
 
-    private void TextUpdate(int step,int scrollnum)
+    private void TextUpdate(int step,int scrollnum, CharacterParam actor = null)
     {
-        switch(step)
+        List<CharacterParam> ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
+        int count = 0;
+
+        switch (step)
         {
             case 0:
                 //処理なし
@@ -81,6 +85,18 @@ public class BattleOperationMk2 : MonoBehaviour
 
             case 1:
                 //アイテム一覧のテキスト更新
+                for (int i = 0; i < ItemDerivation.Count; i++)
+                {
+                    int num = ItemDerivation.Count * scrollnum + i;
+                    if(ItemDataBase.instance.ItemData.ItemParamList.Count > num)
+                    {
+                        ItemDerivation[i].text = ItemDataBase.instance.ItemData.ItemParamList[num].itemName;
+                    }
+                    else
+                    {
+                        ItemDerivation[i].text = "";
+                    }
+                }
                 break;
 
             case 2:
@@ -89,12 +105,23 @@ public class BattleOperationMk2 : MonoBehaviour
 
             case 3:
                 //スキル一覧のテキスト更新
+                for (int i = 0; i < SkillDerivation.Count; i++)
+                {
+                    int num = SkillDerivation.Count * scrollnum + i;
+                    if (actor.skill.Count > num)
+                    {
+                        SkillDerivation[i].text = actor.skill[num].skillName;
+                    }
+                    else
+                    {
+                        SkillDerivation[i].text = "";
+                    }
+                }
                 break;
 
             case 4:
                 //エネミー一覧のテキスト更新
-                List<CharacterParam> ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
-                int count = 0;
+                
                 for (int i = 0; i < ParamList.Count; i++)
                 {
                     if(ParamList[i].type == CharacterType.Enemy && count< EnemyDerivation.Count)
@@ -104,19 +131,38 @@ public class BattleOperationMk2 : MonoBehaviour
                     }
                 }
 
-                Debug.Log(count);
-                Debug.Log(EnemyDerivation.Count);
+                //Debug.Log(count);
+                //Debug.Log(EnemyDerivation.Count);
 
-                for (int i = count; i < EnemyDerivation.Count;)
+                for (int i = count; i < EnemyDerivation.Count;i++)
                 {
                     EnemyDerivation[i].text = "";
-                    EnemyDerivation.Remove(EnemyDerivation[i]);
-                    Debug.Log(EnemyDerivation.Count);
+                    //EnemyDerivation.Remove(EnemyDerivation[i]);
+                    //Debug.Log(EnemyDerivation.Count);
                 }
                 break;
 
             case 5:
                 //プレイヤー一覧のテキスト更新
+                for (int i = 0; i < ParamList.Count; i++)
+                {
+                    if (ParamList[i].type == CharacterType.Player && count < PlayerDerivation.Count)
+                    {
+                        PlayerDerivation[count].text = ParamList[i].name;
+                        count++;
+                    }
+                }
+
+                //Debug.Log(count);
+                //Debug.Log(EnemyDerivation.Count);
+
+                for (int i = count; i < PlayerDerivation.Count;i++)
+                {
+                    PlayerDerivation[i].text = "";
+                    //PlayerDerivation.Remove(PlayerDerivation[i]);
+                    //Debug.Log(EnemyDerivation.Count);
+                }
+
                 break;
         }
     }
@@ -125,7 +171,7 @@ public class BattleOperationMk2 : MonoBehaviour
     /// 選択肢のα地を初期化する関数
     /// </summary>
     /// <param name="step">現在処理がどこまで進んでいるのかを示す</param>
-    private void InitTextBox(int step)
+    private void InitTextBox(int step,CharacterParam actor = null)
     {
         switch (step)
         {
@@ -135,6 +181,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
+                TextUpdate(0, 0);
                 break;
 
             case 1:
@@ -143,6 +190,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
+                TextUpdate(1, 0);
                 break;
 
             case 2:
@@ -151,6 +199,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
+                TextUpdate(2, 0);
                 break;
 
             case 3:
@@ -159,6 +208,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
+                TextUpdate(3, 0, actor);
                 break;
 
             case 4:
@@ -176,11 +226,12 @@ public class BattleOperationMk2 : MonoBehaviour
                 {
                     TextTranslucent(step, i);
                 }
+                TextUpdate(5, 0);
                 break;
         }
     }
 
-    public IEnumerator OperationSelect(int step,int previous, CharacterParam player)
+    public IEnumerator OperationSelect(int step, int previous, CharacterParam player, int selectionNum = 0)
     {
 
         //string str = "";
@@ -193,38 +244,94 @@ public class BattleOperationMk2 : MonoBehaviour
 
         //Debug.Log(num);
 
-        InitTextBox(step);
+        InitTextBox(step,player);
+
+        int count = 0;
 
         switch (step)
         {
             case 0:
                 CommandObject[step].SetActive(true);
-                maxnum = FirstStep.Count;
+
+                for (int i = 0; i < FirstStep.Count; i++)
+                {
+                    if (FirstStep[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;
                 break;
 
             case 1:
                 CommandObject[step].SetActive(true);
-                maxnum = ItemDerivation.Count;
+
+                for (int i = 0; i < ItemDerivation.Count; i++)
+                {
+                    if (ItemDerivation[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;
                 break;
 
             case 2:
                 CommandObject[step].SetActive(true);
-                maxnum = FightDerivation.Count;
+
+                for (int i = 0; i < FightDerivation.Count; i++)
+                {
+                    if (FightDerivation[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;
                 break;
 
             case 3:
                 CommandObject[step].SetActive(true);
-                maxnum = SkillDerivation.Count;
+
+                for (int i = 0; i < SkillDerivation.Count; i++)
+                {
+                    if (SkillDerivation[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;
                 break;
 
             case 4:
                 CommandObject[step].SetActive(true);
-                maxnum = EnemyDerivation.Count;
+
+                for (int i = 0; i < EnemyDerivation.Count; i++)
+                {
+                    if (EnemyDerivation[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;
                 break;
 
             case 5:
                 CommandObject[step].SetActive(true);
-                maxnum = PlayerDerivation.Count;                
+
+                for (int i = 0; i < PlayerDerivation.Count; i++)
+                {
+                    if (PlayerDerivation[i].text != "")
+                    {
+                        count++;
+                    }
+                }
+
+                maxnum = count;                
                 break;
         }
        
@@ -243,7 +350,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 num = (num + 1) % maxnum;
 
                 //デバック用
-                Debug.Log(num);
+                //Debug.Log(num);
 
                 //次のパネルを非透明にする
                 TextOpaque(step, num);
@@ -259,7 +366,7 @@ public class BattleOperationMk2 : MonoBehaviour
                 num = (num == 0) ? maxnum - 1 : --num;
 
                 //デバック用
-                Debug.Log(num);
+                //Debug.Log(num);
 
                 //前のパネルを非透明にする
                 TextOpaque(step,num);
@@ -269,17 +376,21 @@ public class BattleOperationMk2 : MonoBehaviour
             {
                 //1フレーム待機することでInputフレーム回避を狙う
                 yield return null;
+
+                //Debug.Log(step);
+                //Debug.Log(previous);
+                //Debug.Log(num);
+
                 switch (step)
                 {
                     case 0:
                         if(num == 0)
                         {
                             //アイテム選択に移行する
-                            //CommandObject[0].SetActive(false);
-                            //IEnumerator coroutine = BattleOperationMk2.Instance.OperationSelect(1,step);
-                            //yield return StartCoroutine(coroutine);
-                            //yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step));
-                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("アイテムなぞ…\n使ってんじゃ…\nねぇえええええ！！"));
+                            TextUpdate(1, 0);
+
+                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step, player));
+                            //yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("アイテムなぞ…\n使ってんじゃ…\nねぇえええええ！！"));
                         }
                         else if(num == 1)
                         {
@@ -288,19 +399,19 @@ public class BattleOperationMk2 : MonoBehaviour
                             //IEnumerator coroutine = BattleOperationMk2.Instance.OperationSelect(2 , step);
                             //yield return StartCoroutine(coroutine);
                             yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(2 , step, player));
-                            yield break;
                         }
                         else if(num == 2)
                         {
                             //逃走処理
                             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("逃走は未実装故…\n戦え！！命の続く限り！！"));
                         }
-                        break;
+                        yield break;
 
                     case 1:
                         //アイテム一覧の処理を書く
-                        continue;
-                        //break;
+                        CommandObject[1].SetActive(false);
+                        yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(JudgmentItemType(num), step, player, num));
+                        yield break;
 
                     case 2:                      
                         if (num == 0)
@@ -308,54 +419,115 @@ public class BattleOperationMk2 : MonoBehaviour
                             //通常攻撃の処理を書く
                             CommandObject[2].SetActive(false);
                             yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(4, step, player));
-                            yield break;
                         }
                         else if (num == 1)
                         {
-                            //スキル選択に移行する
-                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("技なんてねぇ！！\n俺の武器はこの拳のみだぁ！！"));
+                            //スキル選択に移行する    
+                            CommandObject[2].SetActive(false);
+                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(3, step, player));
+                            //yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("技なんてねぇ！！\n俺の武器はこの拳のみだぁ！！"));
                         }
-                        break;
+                        yield break;
 
                     case 3:
-                        maxnum = SkillDerivation.Count;
+                        CommandObject[3].SetActive(false);
+                        yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(JudgmentSkillType(num,player), step, player, num));
                         yield break;
 
                     case 4:
-                        if (num == 0)
+                        List<CharacterParam> ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
+
+                        if (previous == 1)
                         {
-                            List<CharacterParam> ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
+                            //アイテムの処理
                             for (int i = 0; i < ParamList.Count; i++)
                             {
-                                if(EnemyDerivation[num].text == ParamList[i].name)
+                                if (EnemyDerivation[num].text == ParamList[i].name)
                                 {
                                     CommandObject[4].SetActive(false);
                                     CommandObject[0].SetActive(true);
                                     InitTextBox(0);
                                     Void.Instance.Move(0);
-                                    SoundManager.instance.PlayVC(VCLabel.VC3);                                    
+                                    //SoundManager.instance.PlayVC(VCLabel.VC3);
+                                    yield return StartCoroutine(BattleSceneManagerMk2.Instance.UseItemAction(player, ParamList[i],selectionNum));
+                                }
+                            }
+
+                        }
+                        else if(previous == 2)
+                        {
+                            //通常攻撃の処理
+                            for (int i = 0; i < ParamList.Count; i++)
+                            {
+                                if (EnemyDerivation[num].text == ParamList[i].name)
+                                {
+                                    CommandObject[4].SetActive(false);
+                                    CommandObject[0].SetActive(true);
+                                    InitTextBox(0);
+                                    Void.Instance.Move(0);
+                                    //SoundManager.instance.PlayVC(VCLabel.VC3);
                                     yield return StartCoroutine(BattleSceneManagerMk2.Instance.Attack(player, ParamList[i]));
                                 }
                             }
-                            
-                            yield break;
                         }
-                        else if (num == 1)
+                        else if(previous == 3)
                         {
-
+                            //スキル処理
+                            for (int i = 0; i < ParamList.Count; i++)
+                            {
+                                if (EnemyDerivation[num].text == ParamList[i].name)
+                                {
+                                    CommandObject[4].SetActive(false);
+                                    CommandObject[0].SetActive(true);
+                                    InitTextBox(0);
+                                    Void.Instance.Move(0);
+                                    //SoundManager.instance.PlayVC(VCLabel.VC3);
+                                    yield return StartCoroutine(BattleSceneManagerMk2.Instance.UseSkillAction(player, ParamList[i], selectionNum));
+                                    yield break;
+                                }
+                            }
                         }
-                        else if (num == 2)
-                        {
-                            
-                        }
-                        else if(num == 3)
-                        {
-
-                        }
+                        //Debug.Log(selectionNum);
                         yield break;
 
                     case 5:
-                        maxnum = PlayerDerivation.Count;
+                        ParamList = BattleSceneManagerMk2.Instance.GetCharcterList();
+
+                        if (previous == 1)
+                        {
+                            //アイテムの処理
+                            for (int i = 0; i < ParamList.Count; i++)
+                            {
+                                if (PlayerDerivation[num].text == ParamList[i].name)
+                                {
+                                    CommandObject[5].SetActive(false);
+                                    CommandObject[0].SetActive(true);
+                                    InitTextBox(0);
+                                    Void.Instance.Move(0);
+                                    //SoundManager.instance.PlayVC(VCLabel.VC3);
+                                    yield return StartCoroutine(BattleSceneManagerMk2.Instance.UseItemAction(player, ParamList[i], selectionNum));
+                                }
+                            }
+
+                        }                       
+                        else if (previous == 3)
+                        {
+                            //スキル処理
+                            for (int i = 0; i < ParamList.Count; i++)
+                            {
+                                if (PlayerDerivation[num].text == ParamList[i].name)
+                                {
+                                    CommandObject[5].SetActive(false);
+                                    CommandObject[0].SetActive(true);
+                                    InitTextBox(0);
+                                    Void.Instance.Move(0);
+                                    //SoundManager.instance.PlayVC(VCLabel.VC3);
+                                    yield return StartCoroutine(BattleSceneManagerMk2.Instance.UseSkillAction(player, ParamList[i], selectionNum));
+                                    yield break;
+                                }
+                            }
+                        }
+                        Debug.Log(step);
                         yield break;
                 }                
             }
@@ -462,6 +634,74 @@ public class BattleOperationMk2 : MonoBehaviour
                 PlayerDerivation[num].color = new Color(PlayerDerivation[num].color.r, PlayerDerivation[num].color.g, PlayerDerivation[num].color.b, 1f);
                 break;
         }
+    }
+
+    public int JudgmentSkillType(int num,CharacterParam actor)
+    {
+        int returnNum = 0;
+
+        switch (actor.skill[num].skillType)
+        {
+            case SkillType.None:
+                returnNum = 0;
+                break;
+            case SkillType.Damage:
+                returnNum = 4;
+
+                break;
+            case SkillType.Heal:
+                returnNum = 5;
+
+                break;
+            case SkillType.Buff:
+                returnNum = 5;
+
+                break;
+            case SkillType.Debuff:
+                returnNum = 4;
+
+                break;
+            case SkillType.Special:
+                returnNum = 0;
+
+                break;
+        }
+
+        return returnNum;
+    }
+
+    public int JudgmentItemType(int num)
+    {
+        int returnNum = 0;
+
+        switch (ItemDataBase.instance.ItemData.ItemParamList[num].itemType)
+        {
+            case ItemType.None:
+                returnNum = 0;
+                break;
+            case ItemType.Damage:
+                returnNum = 4;
+
+                break;
+            case ItemType.Heal:
+                returnNum = 5;
+
+                break;
+            case ItemType.Buff:
+                returnNum = 5;
+
+                break;
+            case ItemType.Debuff:
+                returnNum = 4;
+
+                break;
+            case ItemType.Special:
+                returnNum = 0;
+
+                break;
+        }
+
+        return returnNum;
     }
 
     public enum First

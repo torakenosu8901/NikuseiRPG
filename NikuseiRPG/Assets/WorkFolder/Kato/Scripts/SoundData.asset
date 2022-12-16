@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmDataPairs:
   - bgmLabel: 0
-    audioClip: {fileID: 8300000, guid: 54f2217dfa711cf45902c27fd07148a6, type: 3}
+    audioClip: {fileID: 8300000, guid: 61a2e2037ebdb9644b64536d4a3a75ea, type: 3}
   - bgmLabel: 1
-    audioClip: {fileID: 8300000, guid: 07542ac3eecca4a419cdb1baaeb2024b, type: 3}
+    audioClip: {fileID: 8300000, guid: cd39a935ff499df4aab9808254a78536, type: 3}
   - bgmLabel: 2
-    audioClip: {fileID: 8300000, guid: 645b409e0852618439d7706ff309b3e4, type: 3}
+    audioClip: {fileID: 8300000, guid: 65c51bf484b289f489e72ff413fd02be, type: 3}

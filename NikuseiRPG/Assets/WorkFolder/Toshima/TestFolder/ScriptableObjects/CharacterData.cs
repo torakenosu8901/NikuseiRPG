@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class CharacterData : ScriptableObject
     public List<CharacterParam> EnemyParamList = new List<CharacterParam>();
 
     //プレイヤーのステータスをリストで保持する
-    public List<CharacterParam> PlayerParamList = new List<CharacterParam>();    
+    public List<CharacterParam> PlayerParamList = new List<CharacterParam>();
 }
 
 /// <summary>
@@ -58,6 +59,12 @@ public class CharacterParam
     ////キャラクターの「現在EXP」
     //[SerializeField]
     //public int exp = 0;
+
+    [SerializeField]
+    public List<CharacterUseSkillSet> skill;
+
+    [SerializeField]
+    public List<CharacterUseBuffList> characterUseBuffList;
 }
 
 /// <summary>
@@ -68,4 +75,77 @@ public enum CharacterType
     None,
     Player,
     Enemy
+}
+
+[System.Serializable]
+public class CharacterUseSkillSet
+{
+    [SerializeField]
+    public SkillType skillType;
+
+    [SerializeField]
+    public string skillName;
+
+    [SerializeField]
+    public NumType numtype = NumType.None;
+
+    [SerializeField]
+    public RelatedStatusType statustype = RelatedStatusType.None;
+
+    [SerializeField]
+    public float skillPower;
+
+    [SerializeField]
+    public int skillCost;
+
+    [SerializeField]
+    public int skillRenge;
+
+    [SerializeField]
+    public int skillLearningLevel;
+
+    [SerializeField]
+    public bool skillActivated = false;
+
+    [SerializeField]
+    public int skillPersistence;
+}
+
+[System.Serializable]
+public class CharacterUseBuffList
+{
+    [SerializeField]
+    public string buddName;
+
+    [SerializeField]
+    public RelatedStatusType relatedStatusType = RelatedStatusType.None;
+
+    [SerializeField]
+    public NumType numType = NumType.None;
+
+    [SerializeField]
+    public int buffPower;
+
+    [SerializeField]
+    public int buffPersistence;
+}
+
+public enum SkillType
+{
+    None,
+    Damage,
+    Heal,
+    Buff,
+    Debuff,
+    Special
+}
+
+public enum RelatedStatusType
+{
+    None,
+    MaxNp,
+    Np,
+    Atk,
+    Def,
+    Agi
 }

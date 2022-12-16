@@ -28,11 +28,13 @@ public class BattleSceneManagerMk2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(_parCharacter == null)
+        if (_parCharacter == null)
         {
             Debug.LogError("戦闘参加者が設定されていません");
             return;
         }
+
+        //Debug.Log(_parCharacter[0].characterUseBuffList.Count);
 
         BattleStartPhase();
     }
@@ -40,7 +42,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     #region パブリック関数
@@ -63,7 +65,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
     private void BattleStartPhase()
     {
         //ナンバリング処理
-        //ReNameCharacters();
+        ReNameCharacters();
 
         MessageScrollManager.Instance.GeneralTxtBoxUpData(genelic);
 
@@ -114,14 +116,14 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             char count = 'B';
             for (int j = i + 1; j < _parCharacter.Count; j++)
             {
-                if(_parCharacter[i].name == _parCharacter[j].name)
-                {                   
+                if (_parCharacter[i].name == _parCharacter[j].name)
+                {
                     _parCharacter[j].name += count;
                     ++count;
                 }
             }
 
-            if(count != 'B')
+            if (count != 'B')
             {
                 _parCharacter[i].name += 'A';
             }
@@ -131,9 +133,19 @@ public class BattleSceneManagerMk2 : MonoBehaviour
     /// <summary>
     /// 戦闘終了時に呼ばれる関数
     /// </summary>
-    private void BattleEndPhase() 
+    private IEnumerator BattleEndPhase()
     {
+        Debug.Log(_parCharacter.Count);
+        for (int i = 0; i < _parCharacter.Count; i++)
+        {
+            yield return StartCoroutine(BuffEndProcess(_parCharacter[i], true));
+        }
 
+        _parCharacter.Clear();
+
+        SoundManager.instance.PlayBGM(BGMLabel.BGM2);
+
+        SceneManager.LoadScene("AdventureScene");
     }
 
     /// <summary>
@@ -146,10 +158,13 @@ public class BattleSceneManagerMk2 : MonoBehaviour
 
         for (int i = 0; i < _parCharacter.Count; i++)
         {
+
+            yield return StartCoroutine(BuffEndProcess(_parCharacter[i]));
+
             switch (_parCharacter[i].type)
             {
                 case CharacterType.Player:
-                    if(_parCharacter[i].np > 0)
+                    if (_parCharacter[i].np > 0)
                     {
                         //プレイヤーの行動を決定するまで待機する
                         coroutine = BattleOperationMk2.Instance.OperationSelect(0, 0, _parCharacter[i]);
@@ -165,10 +180,10 @@ public class BattleSceneManagerMk2 : MonoBehaviour
                         //エネミーの行動が終了するまで待機する
                         for (int j = 0; j < _parCharacter.Count; j++)
                         {
-                            if(_parCharacter[j].type == CharacterType.Player)
+                            if (_parCharacter[j].type == CharacterType.Player)
                             {
                                 Void.Instance.Move(1);
-                                SoundManager.instance.PlayVC(VCLabel.VC8);
+                                SoundManager.instance.PlayVC(VCLabel.VC12);
                                 coroutine = Attack(_parCharacter[i], _parCharacter[j]);
                                 yield return StartCoroutine(coroutine);
                                 Debug.Log("エネミーのターン終了");
@@ -197,31 +212,368 @@ public class BattleSceneManagerMk2 : MonoBehaviour
         return _parCharacter;
     }
 
-    public IEnumerator Attack(CharacterParam actor,CharacterParam Target)
+    public IEnumerator Attack(CharacterParam actor, CharacterParam Target)
     {
-        int Damage = actor.atk - Target.atk;
-        if(Damage <= 0) 
+        int Damage = actor.atk - Target.def;
+        if (Damage <= 0)
         {
             Damage = 1;
         }
 
-        for (int i = 0; i < _parCharacter.Count; i++)
-        {
-            if (_parCharacter[i].name == Target.name)
-            {
-                _parCharacter[i].np -= Damage;
-                ConfirmationSurvival();
-                Debug.Log(Damage);
-                BattleOperationMk2.Instance.NPberUpdate();
+        Target.np -= Damage;
+        ConfirmationSurvival();
+        //Debug.Log(Damage);
+        BattleOperationMk2.Instance.NPberUpdate();
 
-                if(Target.type == CharacterType.Enemy)
+        if (Target.type == CharacterType.Enemy)
+        {
+            int Way = Random.Range(0, 2);
+            if(Way == 0)
+            {
+                SoundManager.instance.PlayVC(VCLabel.VC1);
+            }
+            else if(Way == 1)
+            {
+                SoundManager.instance.PlayVC(VCLabel.VC2);
+            }
+        }
+
+        yield return MessageScrollManager.Instance.CharacterAttackMessage(actor, Target, Damage);
+    }
+
+    public IEnumerator UseItemAction(CharacterParam actor, CharacterParam Target, int UseItemNum = 0)
+    {
+        //Debug.Log(UseItemNum);
+
+        int Damage = ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].itemPower;
+        if (Damage <= 0)
+        {
+            Damage = 1;
+        }
+
+        if (ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].itemType == ItemType.Damage)
+        {
+            Target.np -= Damage;
+            ConfirmationSurvival();
+            //Debug.Log(Damage);
+            BattleOperationMk2.Instance.NPberUpdate();
+
+            if (Target.type == CharacterType.Enemy)
+            {
+                // SoundManager.instance.PlayVC(VCLabel.VC10);
+            }
+
+            yield return MessageScrollManager.Instance.CharacterAttackMessage(actor, Target, Damage);
+        }
+        else if (ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].itemType == ItemType.Heal)
+        {
+            Target.np += Damage;
+
+            if (Target.np >= Target.maxnp)
+            {
+                Target.np = Target.maxnp;
+            }
+
+            ConfirmationSurvival();
+            Debug.Log(Damage);
+            BattleOperationMk2.Instance.NPberUpdate();
+
+            if (Target.type == CharacterType.Player)
+            {
+                //SoundManager.instance.PlayVC(VCLabel.VC10);
+            }
+            else if (Target.type == CharacterType.Enemy)
+            {
+
+            }
+
+            yield return MessageScrollManager.Instance.CharacterHealMessage(actor, Target, Damage);
+        }
+        else if (ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].itemType == ItemType.Buff)
+        {
+
+            BuffProcess(actor, Target, UseItemNum, Damage, true);
+
+            yield return MessageScrollManager.Instance.CharacterBuffMessage(actor, Target, Damage);
+        }
+
+        yield break;
+    }
+
+    public IEnumerator UseSkillAction(CharacterParam actor, CharacterParam Target, int UseItemNum = 0)
+    {
+        //Debug.Log(UseItemNum);
+
+        if (actor.skill[UseItemNum].skillType == SkillType.Damage)
+        {
+            float value = actor.atk * actor.skill[UseItemNum].skillPower - Target.def;
+
+            int Damage = (int)value;
+            if (Damage <= 0)
+            {
+                Damage = 1;
+            }
+            Target.np -= Damage;
+            ConfirmationSurvival();
+            //Debug.Log(Damage);
+            BattleOperationMk2.Instance.NPberUpdate();
+
+            if (Target.type == CharacterType.Enemy)
+            {
+                int Way = Random.Range(0, 3);
+                if (Way == 0)
                 {
-                    SoundManager.instance.PlayVC(VCLabel.VC10);
+                    SoundManager.instance.PlayVC(VCLabel.VC3);
+                }
+                else if (Way == 1)
+                {
+                    SoundManager.instance.PlayVC(VCLabel.VC4);
+                }
+                else if(Way == 2)
+                {
+                    SoundManager.instance.PlayVC(VCLabel.VC5);
+                }
+            }
+
+            yield return MessageScrollManager.Instance.CharacterAttackMessage(actor, Target, Damage);
+            yield break;
+        }
+        else if (actor.skill[UseItemNum].skillType == SkillType.Heal)
+        {
+            float value = Target.maxnp * actor.skill[UseItemNum].skillPower;
+
+            int Damage = (int)value;
+            if (Damage <= 0)
+            {
+                Damage = 1;
+            }
+
+            Target.np += Damage;
+
+            if (Target.np >= Target.maxnp)
+            {
+                Target.np = Target.maxnp;
+            }
+
+            ConfirmationSurvival();
+            Debug.Log(Damage);
+            BattleOperationMk2.Instance.NPberUpdate();
+
+            if (Target.type == CharacterType.Player)
+            {
+                int Way = Random.Range(0, 3);
+                if (Way == 0)
+                {
+                    SoundManager.instance.PlayVC(VCLabel.VC6);
+                }
+                else if (Way == 1)
+                {
+                    SoundManager.instance.PlayVC(VCLabel.VC7);
+                }
+                else if (Way == 2)
+                {
+                    SoundManager.instance.PlayVC(VCLabel.VC8);
+                }
+            }
+            else if (Target.type == CharacterType.Enemy)
+            {
+
+            }
+
+            yield return MessageScrollManager.Instance.CharacterHealMessage(actor, Target, Damage);
+            yield break;
+        }
+        else if (actor.skill[UseItemNum].skillType == SkillType.Buff)
+        {
+            float value = actor.atk * actor.skill[UseItemNum].skillPower - actor.atk;
+
+            int Damage = (int)value;
+            //if (Damage <= 0)
+            //{
+            //    Damage = 1;
+            //}
+
+            Debug.Log(Damage);
+
+            int Way = Random.Range(0, 3);
+            if (Way == 0)
+            {
+                SoundManager.instance.PlayVC(VCLabel.VC9);
+            }
+            else if (Way == 1)
+            {
+                SoundManager.instance.PlayVC(VCLabel.VC10);
+            }
+            else if (Way == 2)
+            {
+                SoundManager.instance.PlayVC(VCLabel.VC11);
+            }
+
+            BuffProcess(actor, Target, UseItemNum, Damage, false);
+
+            yield return MessageScrollManager.Instance.CharacterBuffMessage(actor, Target, Damage);
+            yield break;
+        }
+        //Debug.Log(UseItemNum);
+        yield break;
+    }
+
+
+    private void BuffProcess(CharacterParam actor, CharacterParam Target, int UseItemNum, int Valuee, bool UseItem)
+    {
+
+        for (int i = 0; i < Target.characterUseBuffList.Count; i++)
+        {
+            if (ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].itemName == Target.characterUseBuffList[i].buddName && UseItem)
+            {
+                return;
+            }
+            if (actor.skill[UseItemNum].skillName == Target.characterUseBuffList[i].buddName && !UseItem)
+            {
+                return;
+            }
+        }
+
+        CharacterUseBuffList addBuff = new CharacterUseBuffList();
+
+        ItemParam itemParam = ItemDataBase.instance.ItemData.ItemParamList[UseItemNum];
+
+        CharacterUseSkillSet characterUseSkillSet = actor.skill[UseItemNum];
+
+        if (UseItem)
+        {
+            switch (ItemDataBase.instance.ItemData.ItemParamList[UseItemNum].relatedStatus)
+            {
+                case RelatedStatusType.MaxNp:
+                    Target.maxnp += Valuee;
+                    break;
+
+                case RelatedStatusType.Np:
+                    Target.np += Valuee;
+                    break;
+
+                case RelatedStatusType.Atk:
+                    Target.atk += Valuee;
+                    break;
+
+                case RelatedStatusType.Def:
+                    Target.def += Valuee;
+                    break;
+
+                case RelatedStatusType.Agi:
+                    Target.agi += Valuee;
+                    break;
+                default:
+                    break;
+            }
+
+            addBuff.buddName = itemParam.itemName;
+            addBuff.relatedStatusType = itemParam.relatedStatus;
+            addBuff.numType = itemParam.numType;
+            addBuff.buffPower = itemParam.itemPower;
+            addBuff.buffPersistence = itemParam.itemPersistence;
+
+        }
+        else
+        {
+            switch (characterUseSkillSet.statustype)
+            {
+                case RelatedStatusType.MaxNp:
+                    Target.maxnp += Valuee;
+                    break;
+
+                case RelatedStatusType.Np:
+                    Target.np += Valuee;
+                    break;
+
+                case RelatedStatusType.Atk:
+                    Target.atk += Valuee;
+                    break;
+
+                case RelatedStatusType.Def:
+                    Target.def += Valuee;
+                    break;
+
+                case RelatedStatusType.Agi:
+                    Target.agi += Valuee;
+                    break;
+                default:
+                    break;
+            }
+
+            addBuff.buddName = characterUseSkillSet.skillName;
+            addBuff.relatedStatusType = characterUseSkillSet.statustype;
+            addBuff.numType = characterUseSkillSet.numtype;
+            float risingValue = actor.atk * characterUseSkillSet.skillPower - actor.atk;
+            addBuff.buffPower = (int)risingValue;
+            addBuff.buffPersistence = characterUseSkillSet.skillPersistence;
+        }
+
+        Target.characterUseBuffList.Add(addBuff);
+
+        ConfirmationSurvival();
+        //Debug.Log(Valuee);
+        BattleOperationMk2.Instance.NPberUpdate();
+    }
+
+    private IEnumerator BuffEndProcess(CharacterParam Target, bool Init = false)
+    {
+        //Debug.Log(Init);
+        //Debug.Log(Target.characterUseBuffList.Count);
+        for (int i = 0; i < Target.characterUseBuffList.Count; i++)
+        {
+            if (Target.characterUseBuffList[i].buffPersistence <= 0 || Init)
+            {
+                switch (Target.characterUseBuffList[i].relatedStatusType)
+                {
+                    case RelatedStatusType.MaxNp:
+                        Target.maxnp -= Target.characterUseBuffList[i].buffPower;
+
+                        if (Target.maxnp < Target.np)
+                        {
+                            Target.np = Target.maxnp;
+                        }
+
+                        break;
+
+                    case RelatedStatusType.Np:
+                        Target.np -= Target.characterUseBuffList[i].buffPower;
+
+                        if (Target.maxnp < Target.np)
+                        {
+                            Target.np = Target.maxnp;
+                        }
+
+                        break;
+
+                    case RelatedStatusType.Atk:
+                        Target.atk -= Target.characterUseBuffList[i].buffPower;
+                        break;
+
+                    case RelatedStatusType.Def:
+                        Target.def -= Target.characterUseBuffList[i].buffPower;
+                        break;
+
+                    case RelatedStatusType.Agi:
+                        Target.agi -= Target.characterUseBuffList[i].buffPower;
+                        break;
+                    default:
+                        break;
                 }
 
-                yield return MessageScrollManager.Instance.CharacterAttackMessage(actor,Target,Damage);
+                Target.characterUseBuffList.Remove(Target.characterUseBuffList[i]);
+
+                if (!Init)
+                {
+                    yield return StartCoroutine(MessageScrollManager.Instance.MessageCo(Target.name + " の能力がもとに戻った"));
+                }
             }
-        }       
+            else
+            {
+                Target.characterUseBuffList[i].buffPersistence -= 1;
+            }
+            BattleOperationMk2.Instance.NPberUpdate();            
+        }
         yield break;
     }
 
@@ -234,48 +586,58 @@ public class BattleSceneManagerMk2 : MonoBehaviour
         {
             if (_parCharacter[i].type == CharacterType.Player && _parCharacter[i].np > 0)
             {
+                //Debug.Log(_parCharacter[i].np);
                 Pcount++;
+                //Debug.Log(Pcount);
             }
             else if (_parCharacter[i].type == CharacterType.Enemy && _parCharacter[i].np > 0)
             {
+                //Debug.Log(_parCharacter[i].np);
                 Ecount++;
+                //Debug.Log(Ecount);
             }
         }
 
-        if(Pcount <= 0 )
+        Debug.Log(Pcount);
+        Debug.Log(Ecount);
+
+
+        if (Pcount <= 0)
         {
             //敗北処理
             str = "lose";
             Void.Instance.Dead(0);
-            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("全滅した"));            
-            for (int i=0;i<_parCharacter.Count;i++)
-            {
-                _parCharacter[i].np = _parCharacter[i].maxnp;                
-            }
-            _parCharacter.Clear();
-            SceneManager.LoadScene("AdventureScene");
-        }
-        else if(Ecount <= 0)
-        {
-            //勝利処理
-            str = "win";
-            SoundManager.instance.PlayVC(VCLabel.VC9);
-            Void.Instance.Dead(1);
-            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("敵を倒した！"));
+            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("全滅した"));
             for (int i = 0; i < _parCharacter.Count; i++)
             {
-                if (_parCharacter[i].type == CharacterType.Enemy)
-                {
-                    _parCharacter[i].np = _parCharacter[i].maxnp;
-                }
+                _parCharacter[i].np = _parCharacter[i].maxnp;
             }
-            _parCharacter.Clear();
-            SceneManager.LoadScene("AdventureScene");
+            //_parCharacter.Clear();
+            //SceneManager.LoadScene("AdventureScene");
+            Debug.Log(_parCharacter.Count);
+
+            StartCoroutine(BattleEndPhase());
+
+        }
+        else if (Ecount <= 0)
+        {
+            //勝利処理
+            str = "win";            
+            Void.Instance.Dead(1);
+            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("敵を倒した！"));
+            //_parCharacter.Clear();
+            //SceneManager.LoadScene("AdventureScene");
+            Debug.Log(_parCharacter.Count);
+
+            StartCoroutine(BattleEndPhase());
+
         }
         else
         {
             //戦闘続行
             str = "none";
+
+            //Debug.Log(_parCharacter.Count);
         }
 
         yield return str;

@@ -10,6 +10,9 @@ public class AdventureIndex : MonoBehaviour
     [SerializeField]
     private bool FirstOmen;
 
+    [SerializeField]
+    private bool isBossBattle = false;
+
     public static AdventureIndex Instance;
 
     // Start is called before the first frame update
@@ -43,5 +46,22 @@ public class AdventureIndex : MonoBehaviour
     public bool GetOmen()
     {
         return FirstOmen;
+    }
+
+    public void SwitchBossBattleFlag()
+    {
+        if(isBossBattle)
+        {
+            isBossBattle= false;
+        }
+        else
+        {
+            isBossBattle= true;
+        }
+    }
+
+    public bool GetBossBattleFlag()
+    {
+        return isBossBattle;
     }
 }

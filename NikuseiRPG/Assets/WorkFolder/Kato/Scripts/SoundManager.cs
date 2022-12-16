@@ -178,6 +178,8 @@ public enum VCLabel
     VC7,
     VC8,
     VC9,
-    VC10
+    VC10,
+    VC11,
+    VC12
 }
 

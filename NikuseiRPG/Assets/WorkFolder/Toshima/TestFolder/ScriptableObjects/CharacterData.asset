@@ -21,6 +21,38 @@ MonoBehaviour:
     agi: 1
     def: 1
     lv: 1
+    skill:
+    - skillType: 1
+      skillName: "\u30CF\u30A4\u30B5\u30A4\u30AF\u30EB\u30B3\u30E1\u30C3\u30C8"
+      numtype: 1
+      statustype: 3
+      skillPower: 1.5
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 1
+    - skillType: 2
+      skillName: "\u77AD\u7136\u305F\u308B\u5FAA\u74B0"
+      numtype: 1
+      statustype: 2
+      skillPower: 0.3
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 1
+    - skillType: 3
+      skillName: "\u53EF\u9006\u7684\u72B6\u614B\u5909\u5316"
+      numtype: 1
+      statustype: 4
+      skillPower: 1.2
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 3
+    characterUseBuffList: []
   - name: "\u30DE\u30DF\u30FC"
     type: 2
     maxnp: 50
@@ -29,14 +61,28 @@ MonoBehaviour:
     agi: 5
     def: 5
     lv: 5
+    skill: []
+    characterUseBuffList: []
+  - name: "\u30D1\u30AA\u30A6"
+    type: 2
+    maxnp: 1000
+    np: 1000
+    atk: 50
+    agi: 50
+    def: 50
+    lv: 50
+    skill: []
+    characterUseBuffList: []
   - name: "\u30DE\u30AA\u30A6"
     type: 2
-    maxnp: 100
-    np: 100
-    atk: 10
-    agi: 10
-    def: 10
-    lv: 10
+    maxnp: 5000
+    np: 5000
+    atk: 250
+    agi: 250
+    def: 250
+    lv: 250
+    skill: []
+    characterUseBuffList: []
   PlayerParamList:
   - name: "\u30E6\u30A6\u30B7\u30E3"
     type: 1
@@ -46,3 +92,35 @@ MonoBehaviour:
     agi: 5
     def: 5
     lv: 5
+    skill:
+    - skillType: 1
+      skillName: "\u30B7\u30E3\u30FC\u30D7\u30B9\u30C8\u30E9\u30A4\u30AF"
+      numtype: 1
+      statustype: 3
+      skillPower: 1.5
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 1
+    - skillType: 2
+      skillName: "\u8D85\u81EA\u7136\u7684\u5FAA\u74B0"
+      numtype: 1
+      statustype: 2
+      skillPower: 0.3
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 1
+    - skillType: 3
+      skillName: "\u751F\u8005\u306E\u6A29\u5229"
+      numtype: 1
+      statustype: 3
+      skillPower: 2
+      skillCost: 1
+      skillRenge: 1
+      skillLearningLevel: 1
+      skillActivated: 0
+      skillPersistence: 3
+    characterUseBuffList: []

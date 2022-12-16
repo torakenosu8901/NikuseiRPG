@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728858c7dfe65544c9c4a211bec3d81c, type: 3}
   m_Name: ItemData
   m_EditorClassIdentifier: 
-  EnemyParamList: []
+  ItemParamList:
+  - itemType: 1
+    itemName: "\u767A\u7159\u5F3E"
+    numType: 2
+    relatedStatus: 0
+    itemPower: 10
+    itemRange: 1
+    itemMaxPersistence: 1
+    itemPersistence: 1
+  - itemType: 2
+    itemName: "\u91D1\u83CC"
+    numType: 2
+    relatedStatus: 0
+    itemPower: 10
+    itemRange: 1
+    itemMaxPersistence: 1
+    itemPersistence: 1
+  - itemType: 3
+    itemName: "\u30BF\u30EF\u30B7"
+    numType: 2
+    relatedStatus: 3
+    itemPower: 10
+    itemRange: 1
+    itemMaxPersistence: 3
+    itemPersistence: 3

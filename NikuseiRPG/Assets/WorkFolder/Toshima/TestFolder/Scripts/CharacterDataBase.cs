@@ -59,7 +59,29 @@ public class CharacterDataBase : MonoBehaviour
 
     public CharacterParam AddEnemy()
     {
-        return characterData.EnemyParamList[encountenemynum];
+        CharacterParam Enemy = new CharacterParam { };
+
+        Enemy.name = characterData.EnemyParamList[encountenemynum].name;
+
+        Enemy.type = characterData.EnemyParamList[encountenemynum].type;
+
+        Enemy.maxnp = characterData.EnemyParamList[encountenemynum].maxnp;
+
+        Enemy.np = characterData.EnemyParamList[encountenemynum].np;
+
+        Enemy.atk = characterData.EnemyParamList[encountenemynum].atk;
+
+        Enemy.def = characterData.EnemyParamList[encountenemynum].def;
+
+        Enemy.lv = characterData.EnemyParamList[encountenemynum].lv;
+
+        Enemy.skill = characterData.EnemyParamList[encountenemynum].skill;
+
+        Enemy.characterUseBuffList = characterData.EnemyParamList[encountenemynum].characterUseBuffList;
+
+        //return characterData.EnemyParamList[encountenemynum];
+
+        return Enemy;
     }
     public CharacterParam AddPlayer()
     {

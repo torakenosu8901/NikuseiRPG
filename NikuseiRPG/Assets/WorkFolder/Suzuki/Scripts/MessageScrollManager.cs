@@ -130,7 +130,7 @@ public class MessageScrollManager : MonoBehaviour
         }
         //全体で変更があった場合こっちも変える
         ChangeMessageSpeed(0.1f);
-        textControl = true;
+        textControl = true;        
     }
 
     //public void PlayerAtkText()
@@ -172,6 +172,34 @@ public class MessageScrollManager : MonoBehaviour
         else if (actor.type == CharacterType.Enemy)
         {
             yield return StartCoroutine(MessageCo(target.name + " が " + actor.name + " から\n" + damage + " のダメージを受けた"));
+        }
+
+        yield break;
+    }
+
+    public IEnumerator CharacterHealMessage(CharacterParam actor, CharacterParam target, int damage)
+    {
+        if (actor.type == CharacterType.Player)
+        {
+            yield return StartCoroutine(MessageCo(actor.name + " が " + target.name + " の体力を\n" + damage + " 回復させた"));
+        }
+        else if (actor.type == CharacterType.Enemy)
+        {
+            yield return StartCoroutine(MessageCo(target.name + " が " + actor.name + " の体力を\n" + damage + " 回復させた"));
+        }
+
+        yield break;
+    }
+
+    public IEnumerator CharacterBuffMessage(CharacterParam actor, CharacterParam target, int damage)
+    {
+        if (actor.type == CharacterType.Player)
+        {
+            yield return StartCoroutine(MessageCo(actor.name + " が " + target.name + " の能力を\n" + damage + " 上昇させた"));
+        }
+        else if (actor.type == CharacterType.Enemy)
+        {
+            yield return StartCoroutine(MessageCo(target.name + " が " + actor.name + " の能力を\n" + damage + " 上昇させた"));
         }
 
         yield break;

@@ -68,9 +68,11 @@ public class Title : MonoBehaviour
 
     public IEnumerator TitleCallAndTitleBGM()
     {
-        SoundManager.instance.PlayVC(VCLabel.VC1);
+        SoundManager.instance.PlaySE(SELabel.SE3);
 
-        yield return new WaitForSeconds(3);
+        Debug.Log("気合");
+
+        yield return new WaitForSeconds(0.5f);
 
         SoundManager.instance.PlayBGM(BGMLabel.BGM1);
 
