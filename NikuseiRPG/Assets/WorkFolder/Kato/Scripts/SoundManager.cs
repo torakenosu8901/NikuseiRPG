@@ -9,19 +9,23 @@ public class SoundManager : SingletonClass<SoundManager>
     private const string BGM_PATH = "Audio/BGM";
     private const string SE_PATH = "Audio/SE";
     private const string VC_PATH = "Audio/VC";
+    private const string NPC_PATH = "Audio/NPC";
     private const string SOUND_OBJECT_NAME = "SoundManager";
     private const int BGM_SOURCE_NUM = 1;
     private const int SE_SOURCE_NUM = 5;
     private const int VC_SOURCE_NUM = 5;
+    private const int NPC_SOURCE_NUM = 5;
     private const float FADE_OUT_SECONDO = 0.5f;
     private const float BGM_VOLUME = 0.5f;
     private const float SE_VOLUME = 0.3f;
     private const float VC_VOLUME = 0.3f;
+    private const float NPC_VOLUME = 0.3f;
 
     private bool isFadeOut = false;
     private float fadeDeltaTime = 0f;
     private int nextSESourceNum = 0;
     private int nextVCSourceNum = 0;
+    private int nextNPCSourceNum = 0;
     private BGMLabel currentBGM = BGMLabel.BGM1;
     private BGMLabel nextBGM = BGMLabel.BGM1;
 
@@ -29,9 +33,11 @@ public class SoundManager : SingletonClass<SoundManager>
     [SerializeField] private AudioSource bgmSource;
     private List<AudioSource> seSourceList;
     private List<AudioSource> vcSourceList;
+    private List<AudioSource> npcSourceList;
     [SerializeField] private SoundData soundData;
     [SerializeField] private SEData SEData;
     [SerializeField] private VCData VCData;
+    [SerializeField] private NPCData NPCData;
 
 
 
@@ -91,6 +97,19 @@ public class SoundManager : SingletonClass<SoundManager>
         AudioSource vc = vcSourceList[nextVCSourceNum];
         vc.PlayOneShot(VCData.VCDataPairs[(int)vcLabel].audioClip);
         nextVCSourceNum = (++nextVCSourceNum < VC_SOURCE_NUM) ? nextVCSourceNum : 0;
+        //bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
+
+
+    }
+
+    public void PlayNPC(NPCLabel npcLabel, float delay = 0.0f) => StartCoroutine(DelayPlayNPC(npcLabel, delay));
+
+    private IEnumerator DelayPlayNPC(NPCLabel npcLabel, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioSource npc = vcSourceList[nextVCSourceNum];
+        npc.PlayOneShot(NPCData.NPCDataPairs[(int)npcLabel].audioClip);
+        nextNPCSourceNum = (++nextNPCSourceNum < NPC_SOURCE_NUM) ? nextNPCSourceNum : 0;
         //bgmSource.clip = soundData.bgmDataPairs[(int)seLabel].audioClip;
 
 
@@ -179,5 +198,13 @@ public enum VCLabel
     VC8,
     VC9,
     VC10
+}
+
+public enum NPCLabel
+{
+    NPC1,
+    NPC2,
+    NPC3
+
 }
 
