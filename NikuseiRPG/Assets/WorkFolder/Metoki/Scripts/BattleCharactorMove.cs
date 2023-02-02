@@ -15,6 +15,7 @@ public class BattleCharactorMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //↓攻撃する箇所にif文取り除いて当てはめてくだされ。
         if (Input.GetKeyUp(KeyCode.P))
         {         
             //コルーチン呼び出し
@@ -27,13 +28,13 @@ public class BattleCharactorMove : MonoBehaviour
 
         while (elapsedTime < 0.1f)
         {
-            this.transform.Translate(new Vector3(1.0f, 0, 0));
+            player.transform.Translate(new Vector3(1.0f, 0, 0));
 
             elapsedTime += Time.deltaTime;
-           //↓コルーチンに必須の処理
-        yield return null;//次のフレームまで待機
+          
+        yield return null;
         }
-                          //上と下の処理を交互に行うことができる
+        
         StartCoroutine(PlayerMove2());
     }
     IEnumerator PlayerMove2()
@@ -42,11 +43,11 @@ public class BattleCharactorMove : MonoBehaviour
 
         while (elapsedTime < 0.1f)
         {
-            this.transform.Translate(new Vector3(-1.0f, 0, 0));
+            player.transform.Translate(new Vector3(-1.0f, 0, 0));
 
             elapsedTime += Time.deltaTime;
-            //↓コルーチンに必須の処理
-            yield return null;//次のフレームまで待機
+          
+            yield return null;
         }
        
     }
