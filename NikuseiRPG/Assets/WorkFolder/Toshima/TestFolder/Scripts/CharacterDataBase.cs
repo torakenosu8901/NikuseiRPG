@@ -61,41 +61,23 @@ public class CharacterDataBase : MonoBehaviour
     {
         CharacterParam Enemy = new CharacterParam { };
 
-        //Enemy.name = characterData.EnemyParamList[encountenemynum].name;
+        Enemy.name = characterData.EnemyParamList[encountenemynum].name;
 
-        //Enemy.type = characterData.EnemyParamList[encountenemynum].type;
+        Enemy.type = characterData.EnemyParamList[encountenemynum].type;
 
-        //Enemy.maxnp = characterData.EnemyParamList[encountenemynum].maxnp;
+        Enemy.maxnp = characterData.EnemyParamList[encountenemynum].maxnp;
 
-        //Enemy.np = characterData.EnemyParamList[encountenemynum].np;
+        Enemy.np = characterData.EnemyParamList[encountenemynum].np;
 
-        //Enemy.atk = characterData.EnemyParamList[encountenemynum].atk;
+        Enemy.atk = characterData.EnemyParamList[encountenemynum].atk;
 
-        //Enemy.def = characterData.EnemyParamList[encountenemynum].def;
+        Enemy.def = characterData.EnemyParamList[encountenemynum].def;
 
-        //Enemy.lv = characterData.EnemyParamList[encountenemynum].lv;
+        Enemy.lv = characterData.EnemyParamList[encountenemynum].lv;
 
-        //Enemy.skill = characterData.EnemyParamList[encountenemynum].skill;
+        Enemy.skill = characterData.EnemyParamList[encountenemynum].skill;
 
-        //Enemy.characterUseBuffList = characterData.EnemyParamList[encountenemynum].characterUseBuffList;
-
-        Enemy.name = characterData.EnemyParamList[0].name;
-
-        Enemy.type = characterData.EnemyParamList[0].type;
-
-        Enemy.maxnp = characterData.EnemyParamList[0].maxnp;
-
-        Enemy.np = characterData.EnemyParamList[0].np;
-
-        Enemy.atk = characterData.EnemyParamList[0].atk;
-
-        Enemy.def = characterData.EnemyParamList[0].def;
-
-        Enemy.lv = characterData.EnemyParamList[0].lv;
-
-        Enemy.skill = characterData.EnemyParamList[0].skill;
-
-        Enemy.characterUseBuffList = characterData.EnemyParamList[0].characterUseBuffList;
+        Enemy.characterUseBuffList = characterData.EnemyParamList[encountenemynum].characterUseBuffList;
 
         //return characterData.EnemyParamList[encountenemynum];
 

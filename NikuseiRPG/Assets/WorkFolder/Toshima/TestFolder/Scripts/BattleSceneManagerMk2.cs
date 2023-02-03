@@ -36,9 +36,6 @@ public class BattleSceneManagerMk2 : MonoBehaviour
 
         //Debug.Log(_parCharacter[0].characterUseBuffList.Count);
 
-        SoundManager.instance.PlayVC(VCLabel.VC3);
-
-
         BattleStartPhase();
     }
 
@@ -148,9 +145,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
 
         SoundManager.instance.PlayBGM(BGMLabel.BGM2);
 
-        //TitleScene
-        //SceneManager.LoadScene("AdventureScene");
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("AdventureScene");
     }
 
     /// <summary>
@@ -188,11 +183,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
                             if (_parCharacter[j].type == CharacterType.Player)
                             {
                                 Void.Instance.Move(1);
-                                SoundManager.instance.PlayVC(VCLabel.VC6);
-
-                                yield return new WaitForSeconds(1f);
-
-                                SoundManager.instance.PlayVC(VCLabel.VC4);
+                                SoundManager.instance.PlayVC(VCLabel.VC12);
                                 coroutine = Attack(_parCharacter[i], _parCharacter[j]);
                                 yield return StartCoroutine(coroutine);
                                 Debug.Log("エネミーのターン終了");
@@ -240,18 +231,10 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             if(Way == 0)
             {
                 SoundManager.instance.PlayVC(VCLabel.VC1);
-
-                yield return new WaitForSeconds(1f);
-
-                SoundManager.instance.PlayVC(VCLabel.VC7);
             }
             else if(Way == 1)
             {
                 SoundManager.instance.PlayVC(VCLabel.VC2);
-
-                yield return new WaitForSeconds(1f);
-
-                SoundManager.instance.PlayVC(VCLabel.VC7);
             }
         }
 
@@ -624,7 +607,6 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             //敗北処理
             str = "lose";
             Void.Instance.Dead(0);
-            SoundManager.instance.PlayVC(VCLabel.VC5);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("全滅した"));
             for (int i = 0; i < _parCharacter.Count; i++)
             {
@@ -642,10 +624,6 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             //勝利処理
             str = "win";            
             Void.Instance.Dead(1);
-            SoundManager.instance.PlayVC(VCLabel.VC8);
-            yield return new WaitForSeconds(1f);
-            SoundManager.instance.PlayVC(VCLabel.VC9);
-            yield return new WaitForSeconds(5f);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("敵を倒した！"));
             //_parCharacter.Clear();
             //SceneManager.LoadScene("AdventureScene");

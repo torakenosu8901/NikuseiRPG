@@ -16,6 +16,6 @@ MonoBehaviour:
   - bgmLabel: 0
     audioClip: {fileID: 8300000, guid: 61a2e2037ebdb9644b64536d4a3a75ea, type: 3}
   - bgmLabel: 1
-    audioClip: {fileID: 8300000, guid: 78e4b5423c8f0a84c8a6a436c34e6538, type: 3}
+    audioClip: {fileID: 8300000, guid: cd39a935ff499df4aab9808254a78536, type: 3}
   - bgmLabel: 2
     audioClip: {fileID: 8300000, guid: 65c51bf484b289f489e72ff413fd02be, type: 3}

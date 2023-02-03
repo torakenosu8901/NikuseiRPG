@@ -61,9 +61,8 @@ public class Title : MonoBehaviour
 
             SoundManager.instance.PlayBGM(BGMLabel.BGM2);
 
-            //()の中身はメインゲームのシーン名を入れてくださいBattleScene
-            //SceneManager.LoadScene("AdventureScene");
-            SceneManager.LoadScene("BattleScene");
+            //()の中身はメインゲームのシーン名を入れてください
+            SceneManager.LoadScene("AdventureScene");
         }
     }
 

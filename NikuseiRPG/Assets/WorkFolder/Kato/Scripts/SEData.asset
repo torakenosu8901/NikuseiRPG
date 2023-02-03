@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SEDataPairs:
   - seLabel: 0
-    audioClip: {fileID: 8300000, guid: 9b62d8403a4b4034a912de202d145ac6, type: 3}
+    audioClip: {fileID: 8300000, guid: 25cfeac2eb93fed47ae74e37752c8611, type: 3}
   - seLabel: 0
     audioClip: {fileID: 8300000, guid: a18b2fe4c0b7c3c4ebbb634759fdf81b, type: 3}
   - seLabel: 0
