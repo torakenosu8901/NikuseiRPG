@@ -389,8 +389,10 @@ public class BattleOperationMk2 : MonoBehaviour
                             //アイテム選択に移行する
                             TextUpdate(1, 0);
 
-                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step, player));
-                            //yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("アイテムなぞ…\n使ってんじゃ…\nねぇえええええ！！"));
+                            //yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(1, step, player));
+                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("アイテムなぞ…\n使ってんじゃ…\nねぇえええええ！！"));
+                            continue;
+
                         }
                         else if(num == 1)
                         {
@@ -404,6 +406,8 @@ public class BattleOperationMk2 : MonoBehaviour
                         {
                             //逃走処理
                             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("逃走は未実装故…\n戦え！！命の続く限り！！"));
+                            continue;
+
                         }
                         yield break;
 
@@ -423,9 +427,10 @@ public class BattleOperationMk2 : MonoBehaviour
                         else if (num == 1)
                         {
                             //スキル選択に移行する    
-                            CommandObject[2].SetActive(false);
-                            yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(3, step, player));
-                            //yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("技なんてねぇ！！\n俺の武器はこの拳のみだぁ！！"));
+                            //CommandObject[2].SetActive(false);
+                            //yield return StartCoroutine(BattleOperationMk2.Instance.OperationSelect(3, step, player));
+                            yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("技なんてねぇ！！\n俺の武器はこの拳のみだぁ！！"));
+                            continue;
                         }
                         yield break;
 
