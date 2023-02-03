@@ -188,6 +188,9 @@ public class BattleSceneManagerMk2 : MonoBehaviour
                             if (_parCharacter[j].type == CharacterType.Player)
                             {
                                 Void.Instance.Move(1);
+
+                                EffectManeger.instance.EnemyEffectAttack();
+
                                 yield return StartCoroutine(BattleCharactorMove.instance.EnemyMove());
 
                                 SoundManager.instance.PlayVC(VCLabel.VC6);
@@ -243,6 +246,8 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             {
                 yield return StartCoroutine(BattleCharactorMove.instance.PlayerMove());
 
+                EffectManeger.instance.PlayerEffectAttack();
+
                 SoundManager.instance.PlayVC(VCLabel.VC1);
 
                 yield return new WaitForSeconds(1f);
@@ -252,6 +257,8 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             else if(Way == 1)
             {
                 yield return StartCoroutine(BattleCharactorMove.instance.PlayerMove());
+
+                EffectManeger.instance.PlayerEffectAttack();
 
                 SoundManager.instance.PlayVC(VCLabel.VC2);
 
@@ -630,6 +637,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             //敗北処理
             str = "lose";
             Void.Instance.Dead(0);
+            EffectManeger.instance.PlayerEffectDead();
             SoundManager.instance.PlayVC(VCLabel.VC5);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("全滅した"));
             for (int i = 0; i < _parCharacter.Count; i++)
@@ -648,6 +656,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             //勝利処理
             str = "win";            
             Void.Instance.Dead(1);
+            EffectManeger.instance.EnemyEffectDead();
             SoundManager.instance.PlayVC(VCLabel.VC8);
             yield return new WaitForSeconds(1f);
             SoundManager.instance.PlayVC(VCLabel.VC9);

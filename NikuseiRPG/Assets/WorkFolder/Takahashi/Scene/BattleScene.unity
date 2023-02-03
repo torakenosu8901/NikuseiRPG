@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 13268517}
   - component: {fileID: 13268518}
   - component: {fileID: 13268519}
+  - component: {fileID: 13268520}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -234,8 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Icon:
-  - {fileID: 1099770768}
-  - {fileID: 1503587824}
+  - {fileID: 1099770772}
+  - {fileID: 1503587828}
 --- !u!114 &13268519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +249,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6499b722bc99e784ba763bbb46eea94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1099770768}
+  enemy: {fileID: 1503587824}
+--- !u!114 &13268520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13268512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a142491c5e50b524590baa0968aa5c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectDamagePrefab: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  effectDeadPrefab: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
   player: {fileID: 1099770768}
   enemy: {fileID: 1503587824}
 --- !u!1 &21817290
@@ -3143,7 +3160,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!224 &1503587827
 RectTransform:

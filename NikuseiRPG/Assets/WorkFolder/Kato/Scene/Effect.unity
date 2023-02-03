@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectDamagePrefab: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   effectDeadPrefab: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  player: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!4 &240168030
 Transform:
   m_ObjectHideFlags: 0

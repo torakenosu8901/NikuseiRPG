@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Void : MonoBehaviour
 {
+    //[SerializeField]
+    //private List<GameObject> Icon;
+
     [SerializeField]
-    private List<GameObject> Icon;
+    private List<Image> Icon;
 
     public static Void Instance;
 
@@ -19,8 +23,9 @@ public class Void : MonoBehaviour
 
     public void Dead(int i)
     {
-        SpriteRenderer sr = Icon[i].GetComponent<SpriteRenderer>();
+        Image sr = Icon[i];
         sr.color *= new Color(0.5f, 0.5f, 0.5f, 1f);
+        Debug.Log(sr.color);
     }
 
     public IEnumerator Move(int i)
