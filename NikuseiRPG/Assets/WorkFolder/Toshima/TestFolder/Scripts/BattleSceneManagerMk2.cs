@@ -188,6 +188,8 @@ public class BattleSceneManagerMk2 : MonoBehaviour
                             if (_parCharacter[j].type == CharacterType.Player)
                             {
                                 Void.Instance.Move(1);
+                                yield return StartCoroutine(BattleCharactorMove.instance.EnemyMove());
+
                                 SoundManager.instance.PlayVC(VCLabel.VC6);
 
                                 yield return new WaitForSeconds(1f);
@@ -239,6 +241,8 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             int Way = Random.Range(0, 2);
             if(Way == 0)
             {
+                yield return StartCoroutine(BattleCharactorMove.instance.PlayerMove());
+
                 SoundManager.instance.PlayVC(VCLabel.VC1);
 
                 yield return new WaitForSeconds(1f);
@@ -247,6 +251,8 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             }
             else if(Way == 1)
             {
+                yield return StartCoroutine(BattleCharactorMove.instance.PlayerMove());
+
                 SoundManager.instance.PlayVC(VCLabel.VC2);
 
                 yield return new WaitForSeconds(1f);
@@ -645,7 +651,7 @@ public class BattleSceneManagerMk2 : MonoBehaviour
             SoundManager.instance.PlayVC(VCLabel.VC8);
             yield return new WaitForSeconds(1f);
             SoundManager.instance.PlayVC(VCLabel.VC9);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
             yield return StartCoroutine(MessageScrollManager.Instance.MessageCo("敵を倒した！"));
             //_parCharacter.Clear();
             //SceneManager.LoadScene("AdventureScene");
