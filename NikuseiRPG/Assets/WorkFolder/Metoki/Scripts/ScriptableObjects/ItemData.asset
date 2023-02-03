@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemData
   m_EditorClassIdentifier: 
   ItemParamList:
+<<<<<<< HEAD
   - itemType: 1
     itemName: "\u767A\u7159\u5F3E"
     numType: 2
@@ -37,3 +38,11 @@ MonoBehaviour:
     itemRange: 1
     itemMaxPersistence: 3
     itemPersistence: 3
+=======
+  - itemName: "\u306E\u3069\u3054\u3057"
+    itemEffect: 80
+  - itemName: "\u3070\u304F\u3060\u3093"
+    itemEffect: 100
+  - itemName: "\u30D0\u30D5"
+    itemEffect: 1.5
+>>>>>>> origin/Masato
